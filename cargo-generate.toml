@@ -10,3 +10,8 @@ type    = "string"
 prompt  = "Which MCU to target?"
 choices = ["esp32", "esp32c3", "esp32s2", "esp32s3"]
 default = "esp32"
+
+[conditional.'mcu == "esp32c3"'.placeholders.atomics]
+type    = "bool"
+prompt  = "Use atomic emulation?"
+default = false

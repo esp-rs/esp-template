@@ -1,8 +1,9 @@
 {%- if mcu == "esp32c3" -%}
-[target.riscv32imc-unknown-none-elf]
-runner = "espflash --format=direct-boot --monitor"
-
+{%- if atomics -%}
 [target.riscv32imac-unknown-none-elf]
+{%- else -%}
+[target.riscv32imc-unknown-none-elf]
+{%- endif %}
 runner = "espflash --format=direct-boot --monitor"
 {%- else -%}
 [target.xtensa-{{ mcu }}-none-elf]
@@ -14,7 +15,11 @@ runner = "espflash --monitor"
 rustflags = [
     "-C", "link-arg=-Tlinkall.x",
 ]
+{% if atomics -%}
+target = "riscv32imac-unknown-none-elf"
+{%- else -%}
 target = "riscv32imc-unknown-none-elf"
+{%- endif %}
 {%- else -%}
 rustflags = [
   "-C", "link-arg=-nostartfiles",
