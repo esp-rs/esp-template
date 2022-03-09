@@ -1,27 +1,27 @@
-{% if mcu == "esp32c3" %}
+{%- if mcu == "esp32c3" -%}
 [target.riscv32imc-unknown-none-elf]
 runner = "espflash --format=direct-boot --monitor"
 
 [target.riscv32imac-unknown-none-elf]
 runner = "espflash --format=direct-boot --monitor"
-{% else %}
+{%- else -%}
 [target.xtensa-{{ mcu }}-none-elf]
 runner = "espflash --monitor"
-{% endif %}
+{%- endif %}
 
 [build]
-{% if mcu == "esp32c3" %}
+{% if mcu == "esp32c3" -%}
 rustflags = [
     "-C", "link-arg=-Tlinkall.x",
 ]
 target = "riscv32imc-unknown-none-elf"
-{% else %}
+{%- else -%}
 rustflags = [
   "-C", "link-arg=-nostartfiles",
   "-C", "link-arg=-Wl,-Tlinkall.x",
 ]
 target = "xtensa-{{ mcu }}-none-elf"
-{% endif %}
+{%- endif %}
 
 [unstable]
 build-std = ["core"]

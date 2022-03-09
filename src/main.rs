@@ -3,11 +3,11 @@
 
 use {{ mcu }}_hal::{pac::Peripherals, prelude::*};
 use panic_halt as _;
-{% if mcu == "esp32c3" %}
+{% if mcu == "esp32c3" -%}
 use riscv_rt::entry;
-{% else %}
+{%- else -%}
 use xtensa_lx_rt::entry;
-{% endif %}
+{%- endif %}
 
 #[entry]
 fn main() -> ! {

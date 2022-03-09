@@ -7,18 +7,18 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 panic-halt   = "0.2"
-{% if mcu == "esp32c3" %}
+{% if mcu == "esp32c3" -%}
 esp32c3-hal = { package = "esp32c3-hal", git = "https://github.com/esp-rs/esp-hal.git" }
 riscv-rt = { version = "0.8", optional = true }
-{% else %}
+{%- else -%}
 {{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git" }
 xtensa-lx-rt = { version = "0.9", features = ["{{ mcu }}"], optional = true }
-{% endif %}
+{%- endif %}
 
 [features]
 default = ["rt"]
-{% if mcu == "esp32c3" %}
+{% if mcu == "esp32c3" -%}
 rt = ["riscv-rt"]
-{% else %}
+{%- else -%}
 rt = ["xtensa-lx-rt"]
-{% endif %}
+{%- endif %}
