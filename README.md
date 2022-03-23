@@ -1,5 +1,15 @@
 # {{ project-name }}
 
+A minimalist template for use with [cargo-generate] to create `no_std` applications targeting Espressif's line of SoCs and modules. At present this template supports the **ESP32**, **ESP32-C3**, **ESP32-S2**, and **ESP32-S3**; additional devices will be added as they become available.
+
+To generate a project using this template:
+
+```bash
+$ cargo generate https://github.com/esp-rs/esp-template
+```
+
+[cargo-generate]: https://github.com/cargo-generate/cargo-generate
+
 ## License
 
 Licensed under either of:
