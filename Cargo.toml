@@ -12,7 +12,7 @@ esp32c3-hal = { package = "esp32c3-hal", git = "https://github.com/esp-rs/esp-ha
 riscv-rt = { version = "0.8", optional = true }
 {%- else -%}
 {{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git" }
-xtensa-lx-rt = { version = "0.9", features = ["{{ mcu }}"], optional = true }
+xtensa-lx-rt = { version = "0.11.0", features = ["{{ mcu }}"], optional = true }
 {%- endif %}
 
 [features]
