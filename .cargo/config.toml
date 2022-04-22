@@ -4,11 +4,10 @@
 {%- else -%}
 [target.riscv32imc-unknown-none-elf]
 {%- endif %}
-runner = "espflash --format=direct-boot --monitor"
 {%- else -%}
 [target.xtensa-{{ mcu }}-none-elf]
-runner = "espflash --monitor"
 {%- endif %}
+runner = "espflash --monitor"
 
 [build]
 {% if mcu == "esp32c3" -%}

@@ -3,6 +3,7 @@ cargo_generate_version = ">=0.10.0"
 ignore = [
     ".git",
     ".github",
+    "README.md",
 ]
 
 [placeholders.mcu]
