@@ -11,7 +11,7 @@ use xtensa_lx_rt::entry;
 
 #[entry]
 fn main() -> ! {
-    let peripherals = Peripherals::take().unwrap();
+    let _peripherals = Peripherals::take().unwrap();
 
     loop {}
 }

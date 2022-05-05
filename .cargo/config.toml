@@ -12,7 +12,7 @@ runner = "espflash --monitor"
 [build]
 {% if mcu == "esp32c3" -%}
 rustflags = [
-    "-C", "link-arg=-Tlinkall.x",
+  "-C", "link-arg=-Tlinkall.x",
 ]
 {% if atomics -%}
 target = "riscv32imac-unknown-none-elf"
