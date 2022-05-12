@@ -1,0 +1,40 @@
+{
+  "name": "{{ crate_name }}",
+
+  // Select the proper image tag below. For more information about tags refer to:
+  // https://github.com/SergioGasquez/esp-rs-container
+  "image": "docker.io/sergiogasquez/esp-rs-env:base",
+
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.watcherExclude": {
+      "**/target/**": true,
+    },
+    "lldb.executable": "/usr/bin/lldb",
+
+    "[rust]": {
+      "editor.defaultFormatter": "matklad.rust-analyzer"
+    },
+  },
+
+  "extensions": [
+    "matklad.rust-analyzer",
+    "tamasfe.even-better-toml",
+    "vadimcn.vscode-lldb",
+    "serayuzgur.crates",
+    "mutantdino.resourcemonitor",
+    "yzhang.markdown-all-in-one"
+  ],
+
+  // Uncomment if using Podman and choose the proper device:
+  // "runArgs": [
+  //   "--userns=keep-id",
+  //   "--device", "/dev/ttyUSB0",
+  //   "--security-opt", "label=disable",
+  //   "--annotation", "run.oci.keep_original_groups=1",
+  // ],
+  "forwardPorts": [9012],
+
+  "workspaceMount": "source=${localWorkspaceFolder},target={{ workspace }},type=bind,consistency=cached",
+  "workspaceFolder": "{{ workspace }}",
+}
