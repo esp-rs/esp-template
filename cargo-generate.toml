@@ -18,4 +18,4 @@ prompt  = "Configure project to use VS Code Remote Containers?"
 default = false
 
 [conditional.'devcontainer == false']
-ignore = [".devcontainer/", ".gitpod.Dockerfile", ".gitpod.yml", ".vscode/launch.json", ".vscode/tasks.json", ".dockerignore"]
+ignore = [".devcontainer/", ".gitpod.Dockerfile", ".gitpod.yml", ".vscode/launch.json", ".vscode/tasks.json", ".dockerignore", "build.sh", "run-wokwi.sh", "flash.sh"]
