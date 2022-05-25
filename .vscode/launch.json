@@ -6,9 +6,9 @@
       "request": "attach",
       "name": "Wokwi Debug",
       {%- if mcu == "esp32c3" -%}
-      "executable": "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }},
+      "executable": "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }}",
       {%- else -%}
-      "executable": "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }},
+      "executable": "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }}",
       {%- endif %}
       "target": "localhost:9333",
       "remote": true,
