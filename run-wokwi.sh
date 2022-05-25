@@ -39,11 +39,13 @@ export ESP_BOARD={{ mcu }}
 export ESP_ELF={{ crate_name }}
 
 if [ "${ESP_BOARD}" == "esp32c3" ]; then
-    export ESP_ARCH="riscv32imc-esp-espidf"
+    export ESP_ARCH="riscv32imac-unknown-none-elf"
 elif [ "${ESP_BOARD}" == "esp32s2" ]; then
-    export ESP_ARCH="xtensa-esp32s2-espidf"
+    export ESP_ARCH="xtensa-esp32s2-none-elf"
+elif [ "${ESP_BOARD}" == "esp32s3" ]; then
+    export ESP_ARCH="xtensa-esp32s3-none-elf"
 else
-    export ESP_ARCH="xtensa-esp32-espidf"
+    export ESP_ARCH="xtensa-esp32-none-elf"
 fi
 
 # TODO: Update with your Wokwi Project

@@ -7,7 +7,7 @@ if [ "${USER}" == "gitpod" ]; then
 elif [ "${CODESPACE_NAME}" != "" ]; then
     export CURRENT_PROJECT=/workspaces/{{ crate_name }}
 else
-    export CURRENT_PROJECT=~/workspace/{{ crate_name }}
+    export CURRENT_PROJECT=~/{{ crate_name }}
 fi
 
 BUILD_MODE=""
@@ -26,16 +26,16 @@ case "$1" in
 esac
 
 export ESP_BOARD={{ mcu }}
-export ESP_ELF="your-project-name"
+export ESP_ELF={{ crate_name }}
 
 if [ "${ESP_BOARD}" == "esp32c3" ]; then
-    export ESP_ARCH="riscv32imc-esp-espidf"
+    export ESP_ARCH="riscv32imac-unknown-none-elf"
 elif [ "${ESP_BOARD}" == "esp32s2" ]; then
-    export ESP_ARCH="xtensa-esp32s2-espidf"
+    export ESP_ARCH="xtensa-esp32s2-none-elf"
 elif [ "${ESP_BOARD}" == "esp32s3" ]; then
-    export ESP_ARCH="xtensa-esp32s3-espidf"
+    export ESP_ARCH="xtensa-esp32s3-none-elf"
 else
-    export ESP_ARCH="xtensa-esp32-espidf"
+    export ESP_ARCH="xtensa-esp32-none-elf"
 fi
 
 web-flash --chip ${ESP_BOARD} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/${ESP_ELF}

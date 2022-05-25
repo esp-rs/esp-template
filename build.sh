@@ -11,7 +11,6 @@ elif [ "${CODESPACE_NAME}" != "" ]; then
     }
 fi
 
-
 case "$1" in
     ""|"release")
         cargo build --release
