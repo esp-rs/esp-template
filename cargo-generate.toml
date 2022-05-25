@@ -17,9 +17,5 @@ type    = "bool"
 prompt  = "Configure project to use VS Code Remote Containers?"
 default = false
 
-[conditional.'devcontainer == true'.placeholders.workspace]
-type   = "string"
-prompt = "Please enter your workspace folder"
-
 [conditional.'devcontainer == false']
-ignore = [".devcontainer/"]
+ignore = [".devcontainer/", ".gitpod.Dockerfile", ".gitpod.yml", ".vscode/launch.json", ".vscode/tasks.json", ".dockerignore"]
