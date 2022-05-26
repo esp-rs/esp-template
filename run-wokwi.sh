@@ -8,7 +8,7 @@ if [ "${USER}" == "gitpod" ]; then
 elif [ "${CODESPACE_NAME}" != "" ]; then
     export CURRENT_PROJECT=/workspaces/{{ crate_name }}
 else
-    export CURRENT_PROJECT=~/workspace/{{ crate_name }}
+    export CURRENT_PROJECT=~/{{ crate_name }}
 fi
 
 BUILD_MODE=""
