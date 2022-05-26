@@ -23,7 +23,7 @@ if we say `yes` we will have instant support for:
 > or Bitbucket repository.
 >
 > In [order to use GitHub Codespaces](https://github.com/features/codespaces#faq)
-> the project needs to be published in a GitHub repository > and the user needs
+> the project needs to be published in a GitHub repository and the user needs
 > to be part of the Codespaces beta or have the project under an organization.
 
 When using devcontainers, some tooling to facilitate building, flashing and
