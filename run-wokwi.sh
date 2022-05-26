@@ -2,14 +2,6 @@
 
 set -e
 
-if [ "${USER}" == "gitpod" ]; then
-    export CURRENT_PROJECT=/workspace/{{ crate_name }}
-elif [ "${CODESPACE_NAME}" != "" ]; then
-    export CURRENT_PROJECT=/workspaces/{{ crate_name }}
-else
-    export CURRENT_PROJECT=~/{{ crate_name }}
-fi
-
 BUILD_MODE=""
 case "$1" in
     ""|"release")
@@ -33,6 +25,7 @@ elif [ "${CODESPACE_NAME}" != "" ];then
     export WOKWI_HOST=${CODESPACE_NAME}-9012.githubpreview.dev
 fi
 
+
 {%- if mcu == "esp32c3" -%}
 export ESP_ARCH=riscv32imac-unknown-none-elf
 {%- else -%}
@@ -42,7 +35,7 @@ export ESP_ARCH=xtensa-{{ mcu }}-none-elf
 # TODO: Update with your Wokwi Project
 export WOKWI_PROJECT_ID=""
 if [ "${WOKWI_PROJECT_ID}" == "" ]; then
-    wokwi-server --chip {{ mcu }} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+    wokwi-server --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
 else
-    wokwi-server --chip {{ mcu }} --id ${WOKWI_PROJECT_ID} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+    wokwi-server --chip {{ mcu }} --id ${WOKWI_PROJECT_ID} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
 fi

@@ -2,14 +2,6 @@
 
 set -e
 
-if [ "${USER}" == "gitpod" ]; then
-    export CURRENT_PROJECT=/workspace/{{ crate_name }}
-elif [ "${CODESPACE_NAME}" != "" ]; then
-    export CURRENT_PROJECT=/workspaces/{{ crate_name }}
-else
-    export CURRENT_PROJECT=~/{{ crate_name }}
-fi
-
 BUILD_MODE=""
 case "$1" in
     ""|"release")
@@ -25,10 +17,11 @@ case "$1" in
         exit 1;;
 esac
 
+
 {%- if mcu == "esp32c3" -%}
 export ESP_ARCH=riscv32imac-unknown-none-elf
 {%- else -%}
 export ESP_ARCH=xtensa-{{ mcu }}-none-elf
 {%- endif %}
 
-web-flash --chip {{ mcu }} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
