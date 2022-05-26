@@ -2,7 +2,6 @@
 
 set -e
 
-# TODO: Update project path
 if [ "${USER}" == "gitpod" ]; then
     export CURRENT_PROJECT=/workspace/{{ crate_name }}
 elif [ "${CODESPACE_NAME}" != "" ]; then
@@ -26,7 +25,6 @@ case "$1" in
         exit 1;;
 esac
 
-
 if [ "${USER}" == "gitpod" ];then
     gp_url=$(gp url 9012)
     echo "gp_url=${gp_url}"
@@ -35,23 +33,16 @@ elif [ "${CODESPACE_NAME}" != "" ];then
     export WOKWI_HOST=${CODESPACE_NAME}-9012.githubpreview.dev
 fi
 
-export ESP_BOARD={{ mcu }}
-export ESP_ELF={{ crate_name }}
-
-if [ "${ESP_BOARD}" == "esp32c3" ]; then
-    export ESP_ARCH="riscv32imac-unknown-none-elf"
-elif [ "${ESP_BOARD}" == "esp32s2" ]; then
-    export ESP_ARCH="xtensa-esp32s2-none-elf"
-elif [ "${ESP_BOARD}" == "esp32s3" ]; then
-    export ESP_ARCH="xtensa-esp32s3-none-elf"
-else
-    export ESP_ARCH="xtensa-esp32-none-elf"
-fi
+{%- if mcu == "esp32c3" -%}
+export ESP_ARCH=riscv32imac-unknown-none-elf
+{%- else -%}
+export ESP_ARCH=xtensa-{{ mcu }}-none-elf
+{%- endif %}
 
 # TODO: Update with your Wokwi Project
 export WOKWI_PROJECT_ID=""
 if [ "${WOKWI_PROJECT_ID}" == "" ]; then
-    wokwi-server --chip ${ESP_BOARD} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/${ESP_ELF}
+    wokwi-server --chip {{ mcu }} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
 else
-    wokwi-server --chip ${ESP_BOARD} --id ${WOKWI_PROJECT_ID} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/${ESP_ELF}
+    wokwi-server --chip {{ mcu }} --id ${WOKWI_PROJECT_ID} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
 fi

@@ -25,17 +25,10 @@ case "$1" in
         exit 1;;
 esac
 
-export ESP_BOARD={{ mcu }}
-export ESP_ELF={{ crate_name }}
+{%- if mcu == "esp32c3" -%}
+export ESP_ARCH=riscv32imac-unknown-none-elf
+{%- else -%}
+export ESP_ARCH=xtensa-{{ mcu }}-none-elf
+{%- endif %}
 
-if [ "${ESP_BOARD}" == "esp32c3" ]; then
-    export ESP_ARCH="riscv32imac-unknown-none-elf"
-elif [ "${ESP_BOARD}" == "esp32s2" ]; then
-    export ESP_ARCH="xtensa-esp32s2-none-elf"
-elif [ "${ESP_BOARD}" == "esp32s3" ]; then
-    export ESP_ARCH="xtensa-esp32s3-none-elf"
-else
-    export ESP_ARCH="xtensa-esp32-none-elf"
-fi
-
-web-flash --chip ${ESP_BOARD} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/${ESP_ELF}
+web-flash --chip {{ mcu }} ${CURRENT_PROJECT}/target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
