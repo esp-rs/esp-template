@@ -92,6 +92,11 @@ simulating in Wokwi is also added.
     select `Build & Run Wokwi`.
     - From UI: Press `Build & Run Wokwi` on the left side of the Status Bar.
 
+> **Warning**
+>
+>  The simulation will pause if the browser tab is in the background.This may
+> affect the execution, specially when debuging.
+
 #### Debuging with Wokwi
 
 Wokwi offers debugging with GDB.
@@ -105,14 +110,9 @@ Wokwi offers debugging with GDB.
 
     > [Wokwi Blog: List of common GDB commands for debugging.](https://blog.wokwi.com/gdb-avr-arduino-cheatsheet/?utm_source=urish&utm_medium=blog)
 - UI approach:
-
-    Debug using with VsCode or Gitpod is also possible:
     1. Run the Wokwi Simulation in `debug` profile
-        > **Note**
-        >
-        >  The simulation will pause if the browser tab is in the background.
     2. Go to `Run and Debug` section of the IDE (`Ctrl-Shift-D or Cmd-Shift-D`)
-    3. Start Debugging (`F5`)
+    3. Start Debugging by pressing the Play Button or pressing `F5`
     4. Choose the proper user:
         - `esp` when using VsCode or GitHub Codespaces
         - `gitpod` when using Gitpod
