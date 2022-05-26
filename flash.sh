@@ -17,11 +17,11 @@ case "$1" in
         exit 1;;
 esac
 
-
+export ESP_ARCH=
 {%- if mcu == "esp32c3" -%}
-export ESP_ARCH=riscv32imac-unknown-none-elf
+riscv32imac-unknown-none-elf
 {%- else -%}
-export ESP_ARCH=xtensa-{{ mcu }}-none-elf
+xtensa-{{ mcu }}-none-elf
 {%- endif %}
 
 web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
