@@ -14,7 +14,7 @@ default = "esp32"
 
 [placeholders.devcontainer]
 type    = "bool"
-prompt  = "Configure project to use Devcontainers (VS Code, GitHub Codespaces and Gitpod)?"
+prompt  = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?"
 default = false
 
 [conditional.'devcontainer == false']
