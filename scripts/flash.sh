@@ -24,4 +24,4 @@ riscv32imac-unknown-none-elf
 xtensa-{{ mcu }}-none-elf
 {%- endif %}
 
-web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ project-name }}
