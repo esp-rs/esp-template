@@ -2,7 +2,7 @@
 #![no_main]
 
 use {{ mcu }}_hal::{pac::Peripherals, prelude::*};
-use panic_halt as _;
+use esp_backtrace as _;
 {% if mcu == "esp32c3" -%}
 use riscv_rt::entry;
 {%- else -%}

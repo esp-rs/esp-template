@@ -7,7 +7,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 {{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git" }
-panic-halt = "0.2"
+esp-backtrace = { git = "https://github.com/esp-rs/esp-backtrace", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
 {% if mcu == "esp32c3" -%}
 riscv-rt = { version = "0.8", optional = true }
 {%- else -%}
