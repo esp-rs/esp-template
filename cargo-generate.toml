@@ -18,4 +18,13 @@ prompt  = "Configure project to use Dev Containers (VS Code, GitHub Codespaces a
 default = false
 
 [conditional.'devcontainer == false']
-ignore = [".devcontainer/", ".gitpod.Dockerfile", ".gitpod.yml", ".vscode/launch.json", ".vscode/tasks.json", ".dockerignore", "build.sh", "run-wokwi.sh", "flash.sh"]
+ignore = [
+    ".devcontainer/",
+    ".vscode/launch.json",
+    ".vscode/tasks.json",
+    "docs/",
+    "scripts/",
+    ".dockerignore",
+    ".gitpod.Dockerfile",
+    ".gitpod.yml",
+]
