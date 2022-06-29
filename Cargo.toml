@@ -11,6 +11,9 @@ esp-backtrace = { git = "https://github.com/esp-rs/esp-backtrace", features = ["
 {% if mcu == "esp32c3" -%}
 riscv-rt = { version = "0.8", optional = true }
 {%- else -%}
+{% if mcu == "esp32s2" -%}
+xtensa-atomic-emulation-trap = "0.1.0"
+{%- endif %}
 xtensa-lx-rt = { version = "0.11.0", features = ["{{ mcu }}"], optional = true }
 {%- endif %}
 
