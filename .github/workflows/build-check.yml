@@ -41,8 +41,11 @@ jobs:
       matrix:
         board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
     steps:
-      - name: Setup | cargo-generate
-        run: cargo install cargo-generate
+      - name: Install cargo-generate
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-v0.15.2-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Generate
         run: cargo generate --git https://github.com/esp-rs/esp-template --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Update ownership
