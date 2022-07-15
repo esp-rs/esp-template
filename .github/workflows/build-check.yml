@@ -30,7 +30,10 @@ jobs:
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Setup | ldproxy
-        run: cargo install ldproxy
+        run: |
+          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
+          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Generate
         run: cargo generate --git https://github.com/esp-rs/esp-template --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Build | Fmt Check
