@@ -1,23 +1,7 @@
 #![no_std]
 #![no_main]
-{% if mcu == "esp32c3" -%}
-use {{ mcu }}_hal::{
-    clock::ClockControl,
-    pac::Peripherals,
-    prelude::*,
-    timer::TimerGroup,
-    RtcCntl,
-};
-{%- else -%}
-use {{ mcu }}_hal::{
-    clock::ClockControl,
-    pac::Peripherals,
-    prelude::*,
-    timer::TimerGroup,
-    RtcCntl,
-};
-{%- endif %}
 
+use {{ mcu }}_hal::{clock::ClockControl, pac::Peripherals, prelude::*, timer::TimerGroup, RtcCntl};
 use esp_backtrace as _;
 {% if mcu == "esp32c3" -%}
 use riscv_rt::entry;
