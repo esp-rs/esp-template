@@ -1,7 +1,23 @@
 #![no_std]
 #![no_main]
+{% if mcu == "esp32c3" -%}
+use {{ mcu }}::{
+    clock::ClockControl,
+    pac::Peripherals,
+    prelude::*,
+    timer::{Timer0, TimerGroup},
+    RtcCntl,
+};
+{%- else -%}
+use {{ mcu }}::{
+    clock::ClockControl,
+    pac::Peripherals,
+    prelude::*,
+    timer::{Timer0, Timer1, TimerGroup},
+    RtcCntl,
+};
+{%- endif %}
 
-use {{ mcu }}_hal::{clock::ClockControl, pac::Peripherals, prelude::*, RtcCntl, Timer};
 use esp_backtrace as _;
 {% if mcu == "esp32c3" -%}
 use riscv_rt::entry;
@@ -24,20 +40,21 @@ fn main() -> ! {
 
     // Disable the RTC and TIMG watchdog timers
     let mut rtc_cntl = RtcCntl::new(peripherals.RTC_CNTL);
-    let mut timer0 = Timer::new(peripherals.TIMG0, clocks.apb_clock);
-    {%- if mcu == "esp32c3" %}
-    let mut timer1 = Timer::new(peripherals.TIMG1, clocks.apb_clock);
-    {%- endif %}
+    let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
+    let mut timer0 = timer_group0.timer0;
+    let mut wdt0 = timer_group0.wdt;
+    let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
+    let mut timer1 = timer_group1.timer0;
+    let mut wdt1 = timer_group1.wdt;
 
     {% if mcu == "esp32c3" -%}
     rtc_cntl.set_super_wdt_enable(false);
     rtc_cntl.set_wdt_enable(false);
-    timer0.disable();
-    timer1.disable();
     {%- else -%}
     rtc_cntl.set_wdt_global_enable(false);
-    timer0.disable();
     {%- endif %}
+    wdt0.disable();
+    wdt1.disable();
 
     loop {}
 }
