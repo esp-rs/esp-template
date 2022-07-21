@@ -2,8 +2,6 @@ name: Check format and compilation
 
 on:
   push:
-    branches:
-      - main
     paths-ignore:
       - '**/README.md'
   pull_request:
@@ -34,8 +32,12 @@ jobs:
           sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
           unzip "/home/runner/.cargo/bin/ldproxy.zip" -d /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/ldproxy
-      - name: Generate
-        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${GITHUB_REF_NAME} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+      - name: Generate (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.head_ref }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+      - name: Generate (Push)
+        if: ${{ github.event_name == 'push' }}
+        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.ref_name }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Build | Fmt Check
         run: cd test-esp32c3; cargo fmt -- --check
       - name: Build | Clippy
@@ -53,8 +55,12 @@ jobs:
           sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name: Generate
-        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${GITHUB_REF_NAME} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+      - name: Generate (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.head_ref }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+      - name: Generate (Push)
+        if: ${{ github.event_name == 'push' }}
+        run: cargo generate --git https://github.com/esp-rs/esp-template  --branch ${{ github.ref_name }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
