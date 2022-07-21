@@ -35,7 +35,7 @@ jobs:
           unzip "/home/runner/.cargo/bin/ldproxy.zip" -d /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Generate
-        run: cargo generate --git https://github.com/esp-rs/esp-template --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${GITHUB_REF##*/} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Build | Fmt Check
         run: cd test-esp32c3; cargo fmt -- --check
       - name: Build | Clippy
@@ -54,7 +54,7 @@ jobs:
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Generate
-        run: cargo generate --git https://github.com/esp-rs/esp-template --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${GITHUB_REF##*/} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
