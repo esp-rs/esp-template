@@ -5,7 +5,7 @@ use {{ mcu }}_hal::{
     clock::ClockControl,
     pac::Peripherals,
     prelude::*,
-    timer::{Timer0, TimerGroup},
+    timer::TimerGroup,
     RtcCntl,
 };
 {%- else -%}
@@ -13,7 +13,7 @@ use {{ mcu }}_hal::{
     clock::ClockControl,
     pac::Peripherals,
     prelude::*,
-    timer::{Timer0, Timer1, TimerGroup},
+    timer::TimerGroup,
     RtcCntl,
 };
 {%- endif %}
@@ -41,10 +41,8 @@ fn main() -> ! {
     // Disable the RTC and TIMG watchdog timers
     let mut rtc_cntl = RtcCntl::new(peripherals.RTC_CNTL);
     let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
-    let mut timer0 = timer_group0.timer0;
     let mut wdt0 = timer_group0.wdt;
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
-    let mut timer1 = timer_group1.timer0;
     let mut wdt1 = timer_group1.wdt;
 
     {% if mcu == "esp32c3" -%}
