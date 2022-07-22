@@ -34,9 +34,9 @@ jobs:
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.head_ref }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Generate (Push)
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.ref_name }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Build | Fmt Check
         run: cd test-esp32c3; cargo fmt -- --check
@@ -57,9 +57,9 @@ jobs:
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.head_ref }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Generate (Push)
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-template  --branch ${{ github.ref_name }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Update ownership
         run: |
