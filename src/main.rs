@@ -31,7 +31,7 @@ fn main() -> ! {
 
     {% if mcu == "esp32c3" -%}
     rtc_cntl.set_super_wdt_enable(false);
-    rtc_cntl.set_wdt_enable(false);
+    rtc_cntl.set_wdt_global_enable(false);
     {%- else -%}
     rtc_cntl.set_wdt_global_enable(false);
     {%- endif %}
