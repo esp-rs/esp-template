@@ -31,6 +31,7 @@ jobs:
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name:  Setup | cargo-generate (cargo)
         if: steps.binaries.outcome != 'success'
+        run: cargo install cargo-generate
       - name: Setup | ldproxy
         run: |
           sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
