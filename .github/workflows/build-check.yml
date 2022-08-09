@@ -67,7 +67,7 @@ jobs:
         run: cargo install cargo-generate
       - name: Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
       - name: Generate (Push)
         if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-template  --branch ${{ github.ref_name }} --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
