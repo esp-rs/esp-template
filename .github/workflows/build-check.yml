@@ -39,7 +39,7 @@ jobs:
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
       - name: Generate (Push)
         if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-template --branch ${{ github.ref_name }} --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
