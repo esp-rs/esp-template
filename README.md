@@ -5,7 +5,7 @@ A minimalist template for use with [cargo-generate] to create `no_std` applicati
 To generate a project using this template:
 
 ```bash
-$ cargo generate https://github.com/esp-rs/esp-template
+cargo generate https://github.com/esp-rs/esp-template
 ```
 
 [cargo-generate]: https://github.com/cargo-generate/cargo-generate
