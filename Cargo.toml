@@ -6,10 +6,10 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-{{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git" }
+{{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git", rev = "35e568d" }
 esp-backtrace = { git = "https://github.com/esp-rs/esp-backtrace", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
 {% if mcu == "esp32c3" -%}
-riscv-rt = { version = "0.8", optional = true }
+riscv-rt = { version = "0.9", optional = true }
 {%- else -%}
 {% if mcu == "esp32s2" -%}
 xtensa-atomic-emulation-trap = "0.2.0"
