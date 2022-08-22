@@ -41,4 +41,8 @@ target = "xtensa-{{ mcu }}-none-elf"
 {%- endif %}
 
 [unstable]
+{% if alloc -%}
+build-std = ["alloc", "core"]
+{%- else -%}
 build-std = ["core"]
+{%- endif %}
