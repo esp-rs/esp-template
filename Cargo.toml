@@ -6,7 +6,11 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-{{ mcu }}-hal = { package = "{{ mcu }}-hal", git = "https://github.com/esp-rs/esp-hal.git", rev = "e9f22ac" }
+{% if mcu == "esp32" -%}
+{{ mcu }}-hal = "0.5.0"
+{% else -%}
+{{ mcu }}-hal = "0.2.0"
+{%- endif %}
 {% if alloc -%}
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
 {%- endif %}
