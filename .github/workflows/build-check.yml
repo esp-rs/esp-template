@@ -33,14 +33,14 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
 
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test-esp32c3 --vcs none --silent -d mcu=esp32c3 -d devcontainer=false -d alloc=false
 
       - name: Build | Fmt Check
         run: cd test-esp32c3; cargo fmt -- --check
@@ -70,14 +70,14 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
 
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true -d alloc=false
 
       - name: Update ownership
         run: |
