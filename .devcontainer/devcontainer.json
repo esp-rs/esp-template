@@ -1,7 +1,7 @@
 {
   "name": "{{ crate_name }}",
   // Select between image and build propieties to pull or build the image.
-  // "image": "docker.io/espressif/idf-rust:{{ mcu }}_1.62.1.0",
+  // "image": "docker.io/espressif/idf-rust:{{ mcu }}_1.63.0.2",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
@@ -13,7 +13,7 @@
   "settings": {
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSaveMode": "file",
     "editor.formatOnType": true,
     "lldb.executable": "/usr/bin/lldb",
     "files.watcherExclude": {
