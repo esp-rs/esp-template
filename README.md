@@ -8,15 +8,24 @@ To generate a project using this template:
 cargo generate https://github.com/esp-rs/esp-template
 ```
 
-[cargo-generate]: https://github.com/cargo-generate/cargo-generate
+After running the command, there will be a few prompts:
+- `Project Name`: Name of the crate.
+- `Which MCU to target?`: SoC model.
+- `Enable allocations via the esp-alloc crate?`: Adds [`esp-alloc`] dependency, and initializes the heap.
+- `Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?`: Adds support for:
+   -  [VS Code Dev Containers]
+   -  [GitHub Codespaces]
+   -  [Gitpod]
 
-## Dev Containers
-When using [cargo-generate], there will be a question regarding Dev Containers support,
-if we say `yes` we will have instant support for:
--  [Gitpod](https://gitpod.io/)
-   - ["Open in Gitpod" button](https://www.gitpod.io/docs/getting-started#open-in-gitpod-button)
--  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
--  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
+   Dev Containers also have integration with [Wokwi simulator] and allow flashing from the container using [web flash].
+
+[cargo-generate]: https://github.com/cargo-generate/cargo-generate
+[`esp-alloc`]: https://github.com/esp-rs/esp-alloc
+[VS Code Dev Containers]: https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container
+[GitHub Codespaces]: https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace
+[Gitpod]: https://www.gitpod.io
+[Wokwi simulator]: https://wokwi.com/
+[web flash]: https://github.com/bjoernQ/esp-web-flash-server
 
 ## License
 
