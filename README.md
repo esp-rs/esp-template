@@ -19,6 +19,8 @@ After running the command, there will be a few prompts:
 
    Dev Containers also have integration with [Wokwi simulator] and allow flashing from the container using [web flash].
 
+For a more detailed explanation about the template see [Understanding esp-template] chapter of [The Rust on ESP Book].
+
 [cargo-generate]: https://github.com/cargo-generate/cargo-generate
 [`esp-alloc`]: https://github.com/esp-rs/esp-alloc
 [VS Code Dev Containers]: https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container
@@ -26,6 +28,9 @@ After running the command, there will be a few prompts:
 [Gitpod]: https://www.gitpod.io
 [Wokwi simulator]: https://wokwi.com/
 [web flash]: https://github.com/bjoernQ/esp-web-flash-server
+[Understanding esp-template]: https://esp-rs.github.io/book/writing-your-own-application/no-std-applications/understanding-esp-template.html
+[The Rust on ESP Book]: https://esp-rs.github.io/book/
+
 
 ## License
 
