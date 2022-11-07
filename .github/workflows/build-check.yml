@@ -25,7 +25,7 @@ jobs:
         id: binaries
         continue-on-error: true
         run: |
-          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/download/v0.15.2/cargo-generate-v0.15.2-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
 
@@ -62,7 +62,7 @@ jobs:
         id: binaries
         continue-on-error: true
         run: |
-          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/download/v0.15.2/cargo-generate-v0.15.2-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
 
