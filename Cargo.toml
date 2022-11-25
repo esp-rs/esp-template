@@ -14,7 +14,7 @@ license = "MIT OR Apache-2.0"
 {% if alloc -%}
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
 {%- endif %}
-esp-backtrace = { version = "0.2.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
+esp-backtrace = { version = "0.3.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
 {% if mcu == "esp32c3" -%}
 riscv-rt = { version = "0.9", optional = true }
 {%- else -%}
