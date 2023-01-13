@@ -34,7 +34,7 @@ fn init_heap() {
 
     unsafe {
         let heap_start = &_heap_start as *const _ as usize;
-        {%- if mcu != "esp32c3" -%}
+        {%- if mcu != "esp32c3" %}
         let heap_end = &_heap_end as *const _ as usize;
         assert!(
             heap_end - heap_start > HEAP_SIZE,
@@ -48,9 +48,9 @@ fn init_heap() {
 
 {%- if mcu == "esp32c3" %}
 #[riscv_rt::entry]
-{%- else -%}
+{%- else %}
 #[xtensa_lx_rt::entry]
-{% endif %}
+{%- endif %}
 fn main() -> ! {
     let peripherals = Peripherals::take().unwrap();
     {%- if mcu == "esp32" %}
