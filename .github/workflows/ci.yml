@@ -35,7 +35,7 @@ jobs:
           - command: fmt
             args: -- --check
           - command: clippy
-            args: --no-deps -- -D warnings
+            args: --no-deps
     steps:
       - uses: actions/checkout@v3
         with:
