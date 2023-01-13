@@ -27,14 +27,14 @@ fn init_heap() {
 
     extern "C" {
         static mut _heap_start: u32;
-        {% if mcu != "esp32c3" -%}
+        {%- if mcu != "esp32c3" -%}
         static mut _heap_end: u32;
-        {% endif %}
+        {%- endif %}
     }
 
     unsafe {
         let heap_start = &_heap_start as *const _ as usize;
-        {% if mcu != "esp32c3" -%}
+        {%- if mcu != "esp32c3" -%}
         let heap_end = &_heap_end as *const _ as usize;
         assert!(
             heap_end - heap_start > HEAP_SIZE,
