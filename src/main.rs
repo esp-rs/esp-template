@@ -27,7 +27,7 @@ fn init_heap() {
 
     extern "C" {
         static mut _heap_start: u32;
-        {%- if mcu != "esp32c3" -%}
+        {%- if mcu != "esp32c3" %}
         static mut _heap_end: u32;
         {%- endif %}
     }
@@ -40,7 +40,7 @@ fn init_heap() {
             heap_end - heap_start > HEAP_SIZE,
             "Not enough available heap memory."
         );
-        {% endif %}
+        {%- endif %}
         ALLOCATOR.init(heap_start as *mut u8, HEAP_SIZE);
     }
 }
