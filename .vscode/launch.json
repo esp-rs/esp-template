@@ -1,3 +1,10 @@
+{% assign is_xtensa = false -%}
+{% assign is_riscv = false -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{% assign is_xtensa = true -%}
+{% else -%}
+{% assign is_riscv = true -%}
+{% endif -%}
 {
   "version": "0.2.0",
   "configurations": [
@@ -6,7 +13,7 @@
       "request": "attach",
       "name": "Wokwi Debug",
       "executable":
-      {%- if mcu == "esp32c3" -%}
+      {%- if is_riscv -%}
       "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }}",
       {%- else -%}
       "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }}",
@@ -14,7 +21,7 @@
       "target": "localhost:9333",
       "remote": true,
       "gdbpath":
-      {%- if mcu == "esp32c3" -%}
+      {%- if is_riscv -%}
       "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/riscv32-esp-elf-gdb",
       {%- else -%}
       "/home/${input:user}/.espressif/tools/xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb",

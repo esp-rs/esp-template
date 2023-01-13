@@ -1,4 +1,11 @@
-{%- if mcu == "esp32c3" -%}
+{% assign is_xtensa = false -%}
+{% assign is_riscv = false -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{% assign is_xtensa = true -%}
+{% else -%}
+{% assign is_riscv = true -%}
+{% endif -%}
+{%- if is_riscv -%}
 [target.riscv32imac-unknown-none-elf]
 {%- else -%}
 [target.xtensa-{{ mcu }}-none-elf]
@@ -6,7 +13,7 @@
 runner = "espflash --monitor"
 
 [build]
-{% if mcu == "esp32c3" -%}
+{% if is_riscv -%}
 rustflags = [
   # Required to obtain backtraces (e.g. when using the "esp-backtrace" crate.)
   # NOTE: May negatively impact performance of produced code

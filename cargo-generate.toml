@@ -1,25 +1,21 @@
 [template]
 cargo_generate_version = ">=0.10.0"
-ignore = [
-    ".git",
-    ".github",
-    "README.md",
-]
+ignore = [".git", ".github", "README.md"]
 
 [placeholders.mcu]
-type    = "string"
-prompt  = "Which MCU to target?"
+type = "string"
+prompt = "Which MCU to target?"
 choices = ["esp32", "esp32c3", "esp32s2", "esp32s3"]
 default = "esp32"
 
 [placeholders.alloc]
-type    = "bool"
-prompt  = "Enable allocations via the esp-alloc crate?"
+type = "bool"
+prompt = "Enable allocations via the esp-alloc crate?"
 default = false
 
 [placeholders.devcontainer]
-type    = "bool"
-prompt  = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?"
+type = "bool"
+prompt = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?"
 default = false
 
 [conditional.'devcontainer == false']

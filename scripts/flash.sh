@@ -1,3 +1,10 @@
+{% assign is_xtensa = false -%}
+{% assign is_riscv = false -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{% assign is_xtensa = true -%}
+{% else -%}
+{% assign is_riscv = true -%}
+{% endif -%}
 #!/usr/bin/env bash
 
 set -e
@@ -19,7 +26,7 @@ case "$1" in
 esac
 
 export ESP_ARCH=
-{%- if mcu == "esp32c3" -%}
+{%- if is_riscv -%}
 riscv32imac-unknown-none-elf
 {%- else -%}
 xtensa-{{ mcu }}-none-elf

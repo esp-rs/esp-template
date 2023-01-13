@@ -1,3 +1,10 @@
+{% assign is_xtensa = false -%}
+{% assign is_riscv = false -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{% assign is_xtensa = true -%}
+{% else -%}
+{% assign is_riscv = true -%}
+{% endif -%}
 [package]
 name = "{{ crate_name }}"
 version = "0.1.0"
@@ -15,7 +22,7 @@ license = "MIT OR Apache-2.0"
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
 {%- endif %}
 esp-backtrace = { version = "0.4.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
-{% if mcu == "esp32c3" -%}
+{% if is_riscv -%}
 riscv-rt = { version = "0.10", optional = true }
 {%- else -%}
 {% if mcu == "esp32s2" -%}
@@ -26,7 +33,7 @@ xtensa-lx-rt = { version = "0.14.0", features = ["{{ mcu }}"], optional = true }
 
 [features]
 default = ["rt"]
-{% if mcu == "esp32c3" -%}
+{% if is_riscv -%}
 rt = ["riscv-rt"]
 {%- else -%}
 rt = ["xtensa-lx-rt"]
