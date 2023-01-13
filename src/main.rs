@@ -8,9 +8,9 @@
 #![no_std]
 #![no_main]
 
-{%- if alloc -%}
+{% if alloc -%}
 extern crate alloc;
-{%- endif %}
+{% endif -%}
 
 use {{ mcu }}_hal::{clock::ClockControl, pac::Peripherals, prelude::*, timer::TimerGroup, Rtc};
 use esp_backtrace as _;
@@ -18,7 +18,7 @@ use esp_backtrace as _;
 use xtensa_atomic_emulation_trap as _;
 {% endif %}
 
-{% if alloc %}
+{%- if alloc %}
 #[global_allocator]
 static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
 
@@ -45,7 +45,8 @@ fn init_heap() {
     }
 }
 {% endif %}
-{%- if mcu == "esp32c3" -%}
+
+{%- if mcu == "esp32c3" %}
 #[riscv_rt::entry]
 {%- else -%}
 #[xtensa_lx_rt::entry]
@@ -68,7 +69,7 @@ fn main() -> ! {
 
     {%- if mcu == "esp32c3" %}
     rtc.swd.disable();
-    {% endif %}
+    {% endif -%}
     rtc.rwdt.disable();
     wdt0.disable();
     wdt1.disable();
