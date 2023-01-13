@@ -53,7 +53,8 @@ jobs:
 
       - name: Setup | Rust
         if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5
+        # uses: esp-rs/xtensa-toolchain@v1.5
+        uses: SergioGasquez/xtensa-toolchain@main
         with:
           default: true
           buildtargets: ${{ matrix.board }}
