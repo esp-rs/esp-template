@@ -67,9 +67,9 @@ fn main() -> ! {
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
     let mut wdt1 = timer_group1.wdt;
 
-    {%- if mcu == "esp32c3" %}
+    {%- if mcu == "esp32c3" -%}
     rtc.swd.disable();
-    {% endif -%}
+    {% endif %}
     rtc.rwdt.disable();
     wdt0.disable();
     wdt1.disable();
