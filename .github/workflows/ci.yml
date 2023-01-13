@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   continuous-integration:
-    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }}
+    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -75,10 +75,6 @@ jobs:
 
       - name: Generate
         run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=false -d alloc=${{ matrix.alloc }}
-
-      # - name: Update ownership
-      #   run: |
-      #     sudo chown 1000:1000 -R test
 
       - name: cargo ${{ matrix.action.command }}
         run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
