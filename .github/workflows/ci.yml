@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     paths-ignore:
@@ -8,20 +7,8 @@ on:
   schedule:
     - cron: "50 7 * * *"
 
-env:
-  CARGO_TERM_COLOR: always
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-# Cancel any currently running workflows from the same PR, branch, or
-# tag when a new workflow is triggered.
-#
-# https://stackoverflow.com/a/66336834
-concurrency:
-  cancel-in-progress: true
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-
 jobs:
-  continuous-integration:
+  rust:
     name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }})
     runs-on: ubuntu-latest
     strategy:
@@ -40,7 +27,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
-
       - name: Setup | Rust
         if: matrix.board == 'esp32c3'
         uses: actions-rs/toolchain@v1
@@ -50,7 +36,6 @@ jobs:
           toolchain: nightly
           default: true
           components: clippy, rustfmt, rust-src
-
       - name: Setup | Rust
         if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
         # uses: esp-rs/xtensa-toolchain@v1.5
@@ -59,7 +44,7 @@ jobs:
           default: true
           buildtargets: ${{ matrix.board }}
           ldproxy: false
-
+      - uses: Swatinem/rust-cache@v2
       - name: Setup | cargo-generate (binaries)
         id: binaries
         continue-on-error: true
@@ -67,15 +52,52 @@ jobs:
           sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
-
       - name: Setup | cargo-generate (cargo)
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
-
-      - uses: Swatinem/rust-cache@v2
-
       - name: Generate
         run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=false -d alloc=${{ matrix.alloc }}
-
       - name: cargo ${{ matrix.action.command }}
         run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
+  docker-check:
+    name: Build using the generated Dockerfile
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        board: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-template/esp-template/github-esp-template
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup | cargo-generate (binaries)
+        id: binaries
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
+      - name: Setup | cargo-generate (cargo)
+        if: steps.binaries.outcome != 'success'
+        run: cargo install cargo-generate
+      - name: Generate
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true -d alloc=false
+      - name: Update ownership
+        run: |
+          sudo chown 1000:1000 -R test-${{ matrix.board }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          tags: test-${{ matrix.board }}:latest
+          build-args: ESP_BOARD=${{ matrix.board }}
+          file: test-${{ matrix.board }}/.devcontainer/Dockerfile
+          push: false
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: test-${{ matrix.board }}:latest
+          options: -u esp -v ${{ github.workspace }}/test-${{ matrix.board }}:/home/esp/test-${{ matrix.board }}
+          run: |
+            cd /home/esp/test-${{ matrix.board }}
+            bash -c 'source /home/esp/export-esp.sh && cargo build'
