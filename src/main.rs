@@ -1,10 +1,3 @@
-{% assign is_xtensa = false -%}
-{% assign is_riscv = false -%}
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-{% assign is_xtensa = true -%}
-{% else -%}
-{% assign is_riscv = true -%}
-{% endif -%}
 #![no_std]
 #![no_main]
 
@@ -46,10 +39,10 @@ fn init_heap() {
 }
 {% endif %}
 
-{%- if mcu == "esp32c3" %}
-#[riscv_rt::entry]
-{%- else %}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 #[xtensa_lx_rt::entry]
+{%- else %}
+#[riscv_rt::entry]
 {%- endif %}
 fn main() -> ! {
     let peripherals = Peripherals::take().unwrap();

@@ -1,27 +1,12 @@
-{% assign is_xtensa = false -%}
-{% assign is_riscv = false -%}
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-{% assign is_xtensa = true -%}
-{% else -%}
-{% assign is_riscv = true -%}
-{% endif -%}
-{%- if is_riscv -%}
-[target.riscv32imac-unknown-none-elf]
-{%- else -%}
+{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 [target.xtensa-{{ mcu }}-none-elf]
+{%- else -%}
+[target.riscv32imac-unknown-none-elf]
 {%- endif %}
 runner = "espflash --monitor"
 
 [build]
-{% if is_riscv -%}
-rustflags = [
-  # Required to obtain backtraces (e.g. when using the "esp-backtrace" crate.)
-  # NOTE: May negatively impact performance of produced code
-  "-C", "force-frame-pointers",
-  "-C", "link-arg=-Tlinkall.x",
-]
-target = "riscv32imac-unknown-none-elf"
-{%- else -%}
+{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 {%- if mcu == "esp32s2" -%}
 rustflags = [
   # Enable the atomic codegen option for Xtensa
@@ -44,6 +29,14 @@ rustflags = [
 ]
 {%- endif %}
 target = "xtensa-{{ mcu }}-none-elf"
+{%- else -%}
+rustflags = [
+  # Required to obtain backtraces (e.g. when using the "esp-backtrace" crate.)
+  # NOTE: May negatively impact performance of produced code
+  "-C", "force-frame-pointers",
+  "-C", "link-arg=-Tlinkall.x",
+]
+target = "riscv32imac-unknown-none-elf"
 {%- endif %}
 
 [unstable]
