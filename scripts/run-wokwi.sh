@@ -27,7 +27,7 @@ elif [ "${CODESPACE_NAME}" != "" ]; then
 fi
 
 export ESP_ARCH=
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 xtensa-{{ mcu }}-none-elf
 {%- else -%}
 riscv32imac-unknown-none-elf

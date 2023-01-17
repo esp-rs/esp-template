@@ -6,8 +6,8 @@
 runner = "espflash --monitor"
 
 [build]
-{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-{%- if mcu == "esp32s2" -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{% if mcu == "esp32s2" -%}
 rustflags = [
   # Enable the atomic codegen option for Xtensa
   "-C", "target-feature=+s32c1i",

@@ -39,7 +39,7 @@ fn init_heap() {
 }
 {% endif %}
 
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
+{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 #[xtensa_lx_rt::entry]
 {%- else %}
 #[riscv_rt::entry]
