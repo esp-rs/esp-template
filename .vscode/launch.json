@@ -7,7 +7,7 @@
       "name": "Wokwi Debug",
       "executable":
       {%- if mcu == "esp32c3" -%}
-      "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }}",
+      "${workspaceFolder}/target/riscv32imc-unknown-none-elf/debug/{{ crate_name }}",
       {%- else -%}
       "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }}",
       {%- endif %}

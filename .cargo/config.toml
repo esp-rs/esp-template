@@ -1,5 +1,5 @@
 {%- if mcu == "esp32c3" -%}
-[target.riscv32imac-unknown-none-elf]
+[target.riscv32imc-unknown-none-elf]
 {%- else -%}
 [target.xtensa-{{ mcu }}-none-elf]
 {%- endif %}
@@ -14,7 +14,7 @@ rustflags = [
 
   "-C", "link-arg=-Tlinkall.x",
 ]
-target = "riscv32imac-unknown-none-elf"
+target = "riscv32imc-unknown-none-elf"
 {%- else -%}
 {%- if mcu == "esp32s2" -%}
 rustflags = [
