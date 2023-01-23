@@ -9,7 +9,8 @@ license = "MIT OR Apache-2.0"
 {% if mcu == "esp32" -%}
 {{ mcu }}-hal = "0.7.0"
 {% else -%}
-{{ mcu }}-hal = "0.4.0"
+# TODO: remove vcs override when revving past a release containing https://github.com/esp-rs/esp-hal/pull/350
+{{ mcu }}-hal = { version = "0.4.0", git = "https://github.com/esp-rs/esp-hal.git", ref = "832f9ef" }
 {%- endif %}
 {% if alloc -%}
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
