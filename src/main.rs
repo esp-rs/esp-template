@@ -34,7 +34,7 @@ fn init_heap() {
 {% else -%}
 #[xtensa_lx_rt::entry]
 {% endif %}fn main() -> ! {
-    let peripherals = Peripherals::take().unwrap();
+    let peripherals = Peripherals::take();
     {%- if mcu == "esp32" %}
     let system = peripherals.DPORT.split();
     {%- else %}
