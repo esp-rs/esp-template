@@ -5,7 +5,9 @@
 extern crate alloc;
 {% endif -%}
 
-use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
+use {{ mcu }}_hal::{
+    clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc
+};
 use esp_backtrace as _;{% if mcu == "esp32s2" %}
 use xtensa_atomic_emulation_trap as _;{% endif %}
 {% if alloc %}#[global_allocator]
