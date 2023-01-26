@@ -16,7 +16,7 @@ esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
 {%- endif %}
 esp-backtrace = { version = "0.4.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
 {% if mcu == "esp32c3" -%}
-riscv-rt = { version = "0.10", optional = true }
+riscv-rt = { version = "0.11", optional = true }
 {%- else -%}
 {% if mcu == "esp32s2" -%}
 xtensa-atomic-emulation-trap = "0.3.0"
