@@ -10,24 +10,24 @@ license = "MIT OR Apache-2.0"
 {{ mcu }}-hal = "0.8.0"
 {% else -%}
 {{ mcu }}-hal = "0.5.0"
-{%- endif %}
+{% endif -%}
 {% if alloc -%}
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
-{%- endif %}
+{% endif -%}
 esp-backtrace = { version = "0.4.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
-{% if mcu == "esp32c3" -%}
-riscv-rt = { version = "0.11", optional = true }
-{%- else -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 {% if mcu == "esp32s2" -%}
 xtensa-atomic-emulation-trap = "0.3.0"
-{%- endif %}
+{% endif -%}
 xtensa-lx-rt = { version = "0.14.0", features = ["{{ mcu }}"], optional = true }
+{%- else -%}
+riscv-rt = { version = "0.11", optional = true }
 {%- endif %}
 
 [features]
 default = ["rt"]
-{% if mcu == "esp32c3" -%}
-rt = ["riscv-rt"]
-{%- else -%}
+{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 rt = ["xtensa-lx-rt"]
+{%- else -%}
+rt = ["riscv-rt"]
 {%- endif %}

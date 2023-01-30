@@ -27,10 +27,10 @@ elif [ "${CODESPACE_NAME}" != "" ]; then
 fi
 
 export ESP_ARCH=
-{%- if mcu == "esp32c3" -%}
-riscv32imac-unknown-none-elf
-{%- else -%}
+{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
 xtensa-{{ mcu }}-none-elf
+{%- else -%}
+riscv32imac-unknown-none-elf
 {%- endif %}
 
 # TODO: Update with your Wokwi Project
