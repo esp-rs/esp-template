@@ -5,8 +5,9 @@
 extern crate alloc;
 {% endif -%}
 
-use {{ mcu }}_hal::{clock::ClockControl, pac::Peripherals, prelude::*, timer::TimerGroup, Rtc};
-use esp_backtrace as _;
+use {{ mcu }}_hal::{
+    clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc,
+};use esp_backtrace as _;
 {% if mcu == "esp32s2" -%}
 use xtensa_atomic_emulation_trap as _;
 {% endif %}
@@ -45,7 +46,7 @@ fn init_heap() {
 #[riscv_rt::entry]
 {%- endif %}
 fn main() -> ! {
-    let peripherals = Peripherals::take().unwrap();
+    let peripherals = Peripherals::take();
     {%- if mcu == "esp32" %}
     let system = peripherals.DPORT.split();
     {%- else %}
