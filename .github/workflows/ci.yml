@@ -50,8 +50,7 @@ jobs:
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust
         if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
-        # uses: esp-rs/xtensa-toolchain@v1.5
-        uses: SergioGasquez/xtensa-toolchain@main
+        uses: esp-rs/xtensa-toolchain@v1.5
         with:
           default: true
           buildtargets: ${{ matrix.board }}
