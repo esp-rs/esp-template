@@ -41,12 +41,10 @@ jobs:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
       - name: Setup | Rust
         if: matrix.board == 'esp32c3'
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
-          profile: minimal
           target: riscv32imc-unknown-none-elf
           toolchain: nightly
-          default: true
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust
         if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
