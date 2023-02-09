@@ -22,14 +22,14 @@ fn init_heap() {
 
     extern "C" {
         static mut _heap_start: u32;
-        {%- if mcu != "esp32c3" %}
+        {%- if mcu != "esp32c2" and mcu != "esp32c3" %}
         static mut _heap_end: u32;
         {%- endif %}
     }
 
     unsafe {
         let heap_start = &_heap_start as *const _ as usize;
-        {%- if mcu != "esp32c3" %}
+        {%- if mcu != "esp32c2" and mcu != "esp32c3" %}
         let heap_end = &_heap_end as *const _ as usize;
         assert!(
             heap_end - heap_start > HEAP_SIZE,
@@ -59,15 +59,19 @@ fn main() -> ! {
     let mut rtc = Rtc::new(peripherals.RTC_CNTL);
     let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
     let mut wdt0 = timer_group0.wdt;
+    {%- if mcu != "esp32c2" -%}
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
     let mut wdt1 = timer_group1.wdt;
+    {% endif -%}
 
     {% if mcu == "esp32c3" -%}
     rtc.swd.disable();
     {% endif -%}
     rtc.rwdt.disable();
     wdt0.disable();
+    {%- if mcu != "esp32c2" -%}
     wdt1.disable();
+    {% endif -%}
 
     loop {}
 }

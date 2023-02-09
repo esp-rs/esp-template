@@ -105,7 +105,7 @@ Wokwi offers debugging with GDB.
 - Terminal approach:
     ```
     $HOME/.espressif/tools/
-    {%- if mcu == "esp32c3" -%}
+    {% if mcu == "esp32c2" or mcu == "esp32c3" %}
     riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/riscv32-esp-elf-gdb target/xtensa-{{ mcu }}-espidf/debug/{{ crate_name }} -ex "target remote localhost:9333"
     {%- else -%}
     xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb target/xtensa-{{ mcu }}-espidf/debug/{{ crate_name }} -ex "target remote localhost:9333"

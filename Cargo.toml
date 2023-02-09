@@ -9,7 +9,11 @@ license = "MIT OR Apache-2.0"
 {% if mcu == "esp32" -%}
 {{ mcu }}-hal = "0.8.0"
 {% else -%}
+{% if mcu == "esp32c2" -%}
+{{ mcu }}-hal = "0.3.0"
+{% else -%}
 {{ mcu }}-hal = "0.5.0"
+{% endif -%}
 {% endif -%}
 {% if alloc -%}
 esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
