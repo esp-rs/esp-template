@@ -66,12 +66,12 @@ fn main() -> ! {
 
     {% if mcu == "esp32c3" -%}
     rtc.swd.disable();
-    {% endif -%}
+    {%- endif %}
     rtc.rwdt.disable();
     wdt0.disable();
     {%- if mcu != "esp32c2" -%}
     wdt1.disable();
-    {% endif -%}
+    {%- endif %}
 
     loop {}
 }
