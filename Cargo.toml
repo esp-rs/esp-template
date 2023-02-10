@@ -6,28 +6,9 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-{% if mcu == "esp32" -%}
-{{ mcu }}-hal = "0.8.0"
-{% else -%}
-{{ mcu }}-hal = "0.5.0"
-{% endif -%}
+hal = { package = "{{ mcu }}-hal", version = "{{ hal_version }}" }
+esp-backtrace = { version = "0.5.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
+esp-println       = { version = "0.3.1", features = ["{{ mcu }}"] }
 {% if alloc -%}
-esp-alloc = { version = "0.1.0", features = ["oom-handler"] }
+esp-alloc = { version = "0.2.0", features = ["oom-handler"] }
 {% endif -%}
-esp-backtrace = { version = "0.4.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-{% if mcu == "esp32s2" -%}
-xtensa-atomic-emulation-trap = "0.3.0"
-{% endif -%}
-xtensa-lx-rt = { version = "0.14.0", features = ["{{ mcu }}"], optional = true }
-{%- else -%}
-riscv-rt = { version = "0.11", optional = true }
-{%- endif %}
-
-[features]
-default = ["rt"]
-{% if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-rt = ["xtensa-lx-rt"]
-{%- else -%}
-rt = ["riscv-rt"]
-{%- endif %}

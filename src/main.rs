@@ -4,15 +4,9 @@
 {% if alloc -%}
 extern crate alloc;
 {% endif -%}
-
-use {{ mcu }}_hal::{
-    clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc,
-};
 use esp_backtrace as _;
-{% if mcu == "esp32s2" -%}
-use xtensa_atomic_emulation_trap as _;
-{% endif %}
-
+use esp_println::println;
+use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
 {%- if alloc %}
 #[global_allocator]
 static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
@@ -22,14 +16,14 @@ fn init_heap() {
 
     extern "C" {
         static mut _heap_start: u32;
-        {%- if mcu != "esp32c3" %}
+        {%- if arch == "xtensa" %}
         static mut _heap_end: u32;
         {%- endif %}
     }
 
     unsafe {
         let heap_start = &_heap_start as *const _ as usize;
-        {%- if mcu != "esp32c3" %}
+        {%- if arch == "xtensa" %}
         let heap_end = &_heap_end as *const _ as usize;
         assert!(
             heap_end - heap_start > HEAP_SIZE,
@@ -40,19 +34,13 @@ fn init_heap() {
     }
 }
 {% endif %}
-
-{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-#[xtensa_lx_rt::entry]
-{%- else %}
-#[riscv_rt::entry]
-{%- endif %}
+#[entry]
 fn main() -> ! {
-    let peripherals = Peripherals::take();
-    {%- if mcu == "esp32" %}
-    let system = peripherals.DPORT.split();
-    {%- else %}
-    let system = peripherals.SYSTEM.split();
+    {% if alloc -%}
+    init_heap();
     {%- endif %}
+    let peripherals = Peripherals::take();
+    let system = peripherals.{{ sys_peripheral }}.split();
     let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
 
     // Disable the RTC and TIMG watchdog timers
@@ -62,12 +50,14 @@ fn main() -> ! {
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
     let mut wdt1 = timer_group1.wdt;
 
-    {% if mcu == "esp32c3" -%}
+    {% if has_swd -%}
     rtc.swd.disable();
     {% endif -%}
     rtc.rwdt.disable();
     wdt0.disable();
     wdt1.disable();
+
+    println!("Hello world!");
 
     loop {}
 }
