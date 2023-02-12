@@ -59,17 +59,17 @@ fn main() -> ! {
     let mut rtc = Rtc::new(peripherals.RTC_CNTL);
     let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
     let mut wdt0 = timer_group0.wdt;
-    {%- if mcu != "esp32c2" -%}
+    {%- if mcu != "esp32c2" %}
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
     let mut wdt1 = timer_group1.wdt;
-    {% endif -%}
+    {%- endif %}
 
-    {% if mcu == "esp32c3" -%}
+    {%- if mcu == "esp32c3" %}
     rtc.swd.disable();
     {%- endif %}
     rtc.rwdt.disable();
     wdt0.disable();
-    {%- if mcu != "esp32c2" -%}
+    {%- if mcu != "esp32c2" %}
     wdt1.disable();
     {%- endif %}
 
