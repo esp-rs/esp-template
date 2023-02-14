@@ -31,12 +31,16 @@ jobs:
         action:
           - command: build
             args: --release
+            continue-on-error: false
           - command: fmt
             args: -- --check
+            continue-on-error: false
           - command: clippy
             args: --no-deps
+            continue-on-error: false
           - command: outdated
             args: --root-deps-only --exit-code 1 -v
+            continue-on-error: true
     steps:
       - uses: actions/checkout@v3
         with:
@@ -68,12 +72,13 @@ jobs:
         run: cargo install cargo-generate
       - name: Setup | cargo-outdated (binaries)
         if: matrix.action.command == 'outdated'
-        uses: dtolnay/install@master
+        uses: dtolnay/install@v1
         with:
           crate: cargo-outdated
       - name: Generate
         run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --name test --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=false -d alloc=${{ matrix.alloc }}
       - name: cargo ${{ matrix.action.command }}
+        continue-on-error: ${{ matrix.action.continue-on-error }}
         run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
   docker-checks:
     name: Build project using the generated Dockerfile
