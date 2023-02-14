@@ -7,7 +7,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 {% if mcu == "esp32" -%}
-{{ mcu }}-hal = "0.8.0"
+{{ mcu }}-hal = "0.7.0"
 {% else -%}
 {{ mcu }}-hal = "0.5.0"
 {% endif -%}
