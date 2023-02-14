@@ -72,7 +72,7 @@ jobs:
         run: cargo install cargo-generate
       - name: Setup | cargo-outdated (binaries)
         if: matrix.action.command == 'outdated'
-        uses: dtolnay/install@v1
+        uses: dtolnay/install@master
         with:
           crate: cargo-outdated
       - name: Generate
