@@ -3,14 +3,7 @@
     "editor": "wokwi",
     "parts": [
         {
-            {% if mcu == "esp32" -% }
-            "type": "wokwi-esp32-devkit-v1",
-            {% elif mcu == "esp32s2" -% }
-            "type": "board-esp32-s2-devkitm-1",
-            {% elif mcu == "esp32s3" -% }
-            "type": "board-esp32-s3-devkitc-1",
-            {%- endif % }
-            "id": "esp",
+            "type": {{ wokwi_board }},
             "top": 0.59,
             "left": 0.67,
             "attrs": {}
