@@ -65,38 +65,23 @@ simulating in Wokwi is also added.
 
 
 ### Wokwi Simulation
-When using a custom Wokwi project, please change the `WOKWI_PROJECT_ID` in
-`run-wokwi.sh`. If no project id is specified, a DevKit for {{ mcu }} will be
-used.
+
+The Dev Container includes the Wokwi Vs Code installed, hence you can simulate your porjects by:
+1. Press `F1`
+2. Run `Wokwi: Start Simulator`
+
+For more information and details on how use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
+
+[Getting Started]: https://docs.wokwi.com/vscode/getting-started
+[Debugging your code]: https://docs.wokwi.com/vscode/debugging
 
 > **Warning**
 >
->  ESP32-S3 is not available in Wokwi
-
-- Terminal approach:
-
-    ```
-    scripts/run-wokwi.sh [debug | release]
-    ```
-    > If no argument is passed, `release` will be used as default
-
-- UI approach:
-
-    The default test task is already set to build the project, and it can be used
-    in VS Code and Gitpod:
-    - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Test Task` command
-    - With `Ctrl-Shift-,` or `Cmd-Shift-,`
-        > **Note**
-        >
-        > This Shortcut is not available in Gitpod by default.
-    - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Task` command and
-    select `Build & Run Wokwi`.
-    - From UI: Press `Build & Run Wokwi` on the left side of the Status Bar.
+>  ESP32-C2 is not supported in Wokwi yet.
 
 > **Warning**
 >
->  The simulation will pause if the browser tab is in the background.This may
-> affect the execution, specially when debuging.
+>  Gitpod does not, yet, support Wokwi extension hence Wokwi simulation is not available in Gitpod
 
 #### Debuging with Wokwi
 
