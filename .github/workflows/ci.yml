@@ -99,7 +99,9 @@ jobs:
         with:
           context: .
           tags: test-${{ matrix.board }}:latest
-          build-args: ESP_BOARD=${{ matrix.board }}
+          build-args: |
+            ESP_BOARD=${{ matrix.board }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           file: test-${{ matrix.board }}/.devcontainer/Dockerfile
           push: false
       - name: Run the build process with Docker
