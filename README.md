@@ -18,7 +18,7 @@ After running the command, there will be a few prompts:
    -  [GitHub Codespaces]
    -  [Gitpod]
 
-   Dev Containers also have integration with [Wokwi simulator] and allow flashing from the container using [web flash].
+   Dev Containers also allow flashing from the container using [web flash] and have integration with [Wokwi simulator] via the [VS Code Wokwi extension](only available in VS Code and GitHub Codespaces).
 
 For a more detailed explanation about the template see [Understanding esp-template] chapter of [The Rust on ESP Book].
 
@@ -28,6 +28,7 @@ For a more detailed explanation about the template see [Understanding esp-templa
 [GitHub Codespaces]: https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace
 [Gitpod]: https://www.gitpod.io
 [Wokwi simulator]: https://wokwi.com/
+[VS Code Wokwi extension]: https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode
 [web flash]: https://github.com/bjoernQ/esp-web-flash-server
 [Understanding esp-template]: https://esp-rs.github.io/book/writing-your-own-application/no-std-applications/understanding-esp-template.html
 [The Rust on ESP Book]: https://esp-rs.github.io/book/
