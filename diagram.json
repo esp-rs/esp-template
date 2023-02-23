@@ -3,7 +3,8 @@
     "editor": "wokwi",
     "parts": [
         {
-            "type": {{ wokwi_board }},
+            "type": "{{ wokwi_board }}",
+            "id": "esp",
             "top": 0.59,
             "left": 0.67,
             "attrs": {}
