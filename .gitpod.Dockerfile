@@ -34,7 +34,11 @@ RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //'
     curl -L "https://github.com/bjoernQ/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
     unzip "${HOME}/.cargo/bin/web-flash.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/web-flash.zip" && \
-    chmod u+x "${HOME}/.cargo/bin/web-flash"
+    chmod u+x "${HOME}/.cargo/bin/web-flash" && \
+    curl -L "https://github.com/MabezDev/wokwi-server/releases/latest/download/wokwi-server-${ARCH}.zip" -o "${HOME}/.cargo/bin/wokwi-server.zip" && \
+    unzip "${HOME}/.cargo/bin/wokwi-server.zip" -d "${HOME}/.cargo/bin/" && \
+    rm "${HOME}/.cargo/bin/wokwi-server.zip" && \
+    chmod u+x "${HOME}/.cargo/bin/wokwi-server"
 
 # Install Xtensa Rust
 RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \

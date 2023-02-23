@@ -66,6 +66,8 @@ simulating in Wokwi is also added.
 
 ### Wokwi Simulation
 
+#### VS Code Dev Containers and GitHub Codespaces
+
 The Dev Container includes the Wokwi Vs Code installed, hence you can simulate your porjects by:
 1. Press `F1`
 2. Run `Wokwi: Start Simulator`
@@ -83,7 +85,23 @@ For more information and details on how use the Wokwi extension, see [Getting St
 >
 >  Gitpod does not, yet, support Wokwi extension hence Wokwi simulation is not available in Gitpod
 
-#### Debuging with Wokwi
+#### Gitpod
+
+`wokwi-server` is part of the Gitpod image so you can run:
+```sh
+wokwi-server --chip <chip> <pathToElf>
+```
+If you want to run your binary in a custom Wokwi project:
+```sh
+wokwi-server --chip <chip> --id <projectId> <pathToElf>
+```
+
+> **Warning**
+>
+>  The simulation will pause if the browser tab is in the background.This may
+> affect the execution, specially when debuging.
+
+##### Debuging with Wokwi in Gitpod
 
 Wokwi offers debugging with GDB.
 
