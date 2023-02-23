@@ -14,6 +14,10 @@ vscode:
     - actboy168.tasks
     - serayuzgur.crates
 ports:
+  - port: 9012
+    visibility: public
+  - port: 9333
+    visibility: public
   - port: 8000
     visibility: public
     onOpen: open-browser
