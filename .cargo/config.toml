@@ -1,5 +1,5 @@
 [target.{{ rust_target }}]
-runner = "espflash flash --monitor"
+runner = "espflash --monitor"
 
 [build]
 rustflags = [
