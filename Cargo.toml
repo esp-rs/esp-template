@@ -5,6 +5,13 @@ authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
 [dependencies]
 hal = { package = "{{ mcu }}-hal", version = "{{ hal_version }}" }
 esp-backtrace = { version = "0.5.0", features = ["{{ mcu }}", "panic-handler", "print-uart"] }
