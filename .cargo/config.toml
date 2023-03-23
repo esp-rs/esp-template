@@ -1,4 +1,8 @@
 [target.{{ rust_target }}]
+# uncomment if using espflash 1.*
+# runner = "espflash --monitor"
+
+# uncomment if using espflash 2.*
 runner = "espflash flash --monitor"
 
 [build]
