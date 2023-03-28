@@ -2,6 +2,7 @@ let targets = #{
     esp32: #{
         arch: "xtensa",
         has_swd: false,
+        has_tg1: true,
         sys_peripheral: "DPORT",
         rct_peripheral: "RTC_CNTL",
         toolchain: "esp",
@@ -13,6 +14,7 @@ let targets = #{
     esp32s2: #{
         arch: "xtensa",
         has_swd: false,
+        has_tg1: true,
         sys_peripheral: "SYSTEM",
         rct_peripheral: "RTC_CNTL",
         toolchain: "esp",
@@ -24,6 +26,7 @@ let targets = #{
     esp32s3: #{
         arch: "xtensa",
         has_swd: false,
+        has_tg1: true,
         sys_peripheral: "SYSTEM",
         rct_peripheral: "RTC_CNTL",
         toolchain: "esp",
@@ -35,6 +38,7 @@ let targets = #{
     esp32c2: #{
         arch: "riscv",
         has_swd: true,
+        has_tg1: false,
         sys_peripheral: "SYSTEM",
         rct_peripheral: "RTC_CNTL",
         toolchain: "nightly",
@@ -46,6 +50,7 @@ let targets = #{
     esp32c3: #{
         arch: "riscv",
         has_swd: true,
+        has_tg1: true,
         sys_peripheral: "SYSTEM",
         rct_peripheral: "RTC_CNTL",
         toolchain: "nightly",
@@ -57,6 +62,7 @@ let targets = #{
     esp32c6: #{
         arch: "riscv",
         has_swd: true,
+        has_tg1: true,
         sys_peripheral: "PCR",
         rct_peripheral: "LP_CLKRST",
         toolchain: "nightly",
