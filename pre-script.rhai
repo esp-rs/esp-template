@@ -7,7 +7,7 @@ let targets = #{
         rust_target: "xtensa-esp32-none-elf",
         atomic_emulation: "none",
         gcc_target: "xtensa-esp32-elf",
-        hal_version: "0.10.0",
+        hal_version: "0.11.0",
     },
     esp32s2: #{
         arch: "xtensa",
@@ -17,7 +17,7 @@ let targets = #{
         rust_target: "xtensa-esp32s2-none-elf",
         atomic_emulation: "esp32s2",
         gcc_target: "xtensa-esp32s2-elf",
-        hal_version: "0.7.0",
+        hal_version: "0.8.0",
     },
     esp32s3: #{
         arch: "xtensa",
@@ -27,7 +27,7 @@ let targets = #{
         rust_target: "xtensa-esp32s3-none-elf",
         atomic_emulation: "none",
         gcc_target: "xtensa-esp32s3-elf",
-        hal_version: "0.7.0",
+        hal_version: "0.8.0",
     },
     esp32c2: #{
         arch: "riscv",
@@ -37,7 +37,7 @@ let targets = #{
         rust_target: "riscv32imc-unknown-none-elf",
         atomic_emulation: "riscv",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.5.0",
+        hal_version: "0.6.0",
     },
     esp32c3: #{
         arch: "riscv",
@@ -47,7 +47,7 @@ let targets = #{
         rust_target: "riscv32imc-unknown-none-elf",
         atomic_emulation: "riscv",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.7.0",
+        hal_version: "0.8.0",
     },
     esp32c6: #{
         arch: "riscv",
