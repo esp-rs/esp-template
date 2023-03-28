@@ -49,6 +49,16 @@ let targets = #{
         gcc_target: "riscv32-esp-elf",
         hal_version: "0.7.0",
     },
+    esp32c6: #{
+        arch: "riscv",
+        has_swd: true,
+        sys_peripheral: "SYSTEM",
+        toolchain: "nightly",
+        rust_target: "riscv32imac-unknown-none-elf",
+        atomic_emulation: "riscv",
+        gcc_target: "riscv32-esp-elf",
+        hal_version: "0.1.0",
+    },
 };
 
 let target = variable::get("mcu");
