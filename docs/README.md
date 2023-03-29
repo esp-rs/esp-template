@@ -68,9 +68,13 @@ simulating in Wokwi is also added.
 
 #### VS Code Dev Containers and GitHub Codespaces
 
-The Dev Container includes the Wokwi Vs Code installed, hence you can simulate your porjects by:
+The Dev Container includes the Wokwi Vs Code installed, hence you can simulate your built projects doing the following:
 1. Press `F1`
 2. Run `Wokwi: Start Simulator`
+
+> **Note**
+>
+>  We asume that the project is built in debug mode, if you want to simulate projects in release, please update the `elf` and  `firmware` propieties in `wokwi.toml`.
 
 For more information and details on how use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
 
