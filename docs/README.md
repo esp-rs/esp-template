@@ -79,11 +79,11 @@ For more information and details on how use the Wokwi extension, see [Getting St
 
 > **Warning**
 >
->  ESP32-C2 is not supported in Wokwi yet.
+>  ESP32-C2 and ESP32-C6 are not yet not supported in Wokwi.
 
 > **Warning**
 >
->  Gitpod does not, yet, support Wokwi extension hence Wokwi simulation is not available in Gitpod
+>  Gitpod does not, yet, support Wokwi extension hence Wokwi simulation is not available in Gitpod.
 
 #### Gitpod
 
