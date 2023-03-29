@@ -64,6 +64,19 @@ let targets = #{
         hal_version: "0.8.0",
         wokwi_board: "board-esp32-c3-devkitm-1",
     },
+    esp32c6: #{
+        arch: "riscv",
+        has_swd: true,
+        has_tg1: true,
+        sys_peripheral: "PCR",
+        rct_peripheral: "LP_CLKRST",
+        toolchain: "nightly",
+        rust_target: "riscv32imac-unknown-none-elf",
+        atomic_emulation: "riscv",
+        gcc_target: "riscv32-esp-elf",
+        hal_version: "0.1.0",
+        wokwi_board: "",
+    },
 };
 
 let target = variable::get("mcu");
