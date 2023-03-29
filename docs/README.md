@@ -18,7 +18,7 @@ This repository offers Dev Containers supports for:
 If using VS Code or GitHub Codespaces, you can pull the image instead of building it
 from the Dockerfile by selecting the `image` property instead of `build` in
 `.devcontainer/devcontainer.json`. Further customization of the Dev Container can
-be achived, see [.devcontainer.json reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
+be achieved, see [`.devcontainer.json` reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
 
 When using Dev Containers, some tooling to facilitate building, flashing and
 simulating in Wokwi is also added.
@@ -74,9 +74,9 @@ The Dev Container includes the Wokwi Vs Code installed, hence you can simulate y
 
 > **Note**
 >
->  We asume that the project is built in debug mode, if you want to simulate projects in release, please update the `elf` and  `firmware` propieties in `wokwi.toml`.
+>  We assume that the project is built in `debug` mode, if you want to simulate projects in release, please update the `elf` and  `firmware` proprieties in `wokwi.toml`.
 
-For more information and details on how use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
+For more information and details on how to use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
 
 [Getting Started]: https://docs.wokwi.com/vscode/getting-started
 [Debugging your code]: https://docs.wokwi.com/vscode/debugging
@@ -87,11 +87,11 @@ For more information and details on how use the Wokwi extension, see [Getting St
 
 > **Warning**
 >
->  Gitpod does not, yet, support Wokwi extension hence Wokwi simulation is not available in Gitpod.
+>  Gitpod does not, yet, support Wokwi extension hence, Wokwi simulation is not available in Gitpod.
 
 #### Gitpod
 
-`wokwi-server` is part of the Gitpod image so you can run:
+[`wokwi-server`](https://github.com/MabezDev/wokwi-server) is part of the Gitpod image so, you can run:
 ```sh
 wokwi-server --chip <chip> <pathToElf>
 ```
@@ -102,10 +102,10 @@ wokwi-server --chip <chip> --id <projectId> <pathToElf>
 
 > **Warning**
 >
->  The simulation will pause if the browser tab is in the background.This may
-> affect the execution, specially when debuging.
+>  The simulation will pause if the browser tab is in the background. This may
+> affect the execution, specially when debugging.
 
-##### Debuging with Wokwi in Gitpod
+##### Debugging with Wokwi in Gitpod
 
 Wokwi offers debugging with GDB.
 
