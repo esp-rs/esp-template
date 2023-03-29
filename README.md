@@ -1,7 +1,7 @@
 # esp-template
 [![CI](https://github.com/esp-rs/esp-template/actions/workflows/ci.yml/badge.svg)](https://github.com/esp-rs/esp-template/actions/workflows/ci.yml)
 
-A minimalist template for use with [cargo-generate] to create `no_std` applications targeting Espressif's line of SoCs and modules. At present this template supports the **ESP32**, **ESP32-C2**, **ESP32-C3**,**ESP32-C6**, **ESP32-S2**, and **ESP32-S3**; additional devices will be added as they become available.
+A minimalist template for use with [cargo-generate] to create `no_std` applications targeting Espressif's line of SoCs and modules. At present, this template supports the **ESP32**, **ESP32-C2**, **ESP32-C3**,**ESP32-C6**, **ESP32-S2**, and **ESP32-S3**; additional devices will be added as they become available.
 
 To generate a project using this template:
 
@@ -18,9 +18,9 @@ After running the command, there will be a few prompts:
    -  [GitHub Codespaces]
    -  [Gitpod]
 
-   Dev Containers also allow flashing from the container using [web flash] and have integration with [Wokwi simulator] via the [VS Code Wokwi extension](only available in VS Code and GitHub Codespaces).
+   Dev Containers also allow flashing from the container using [web flash] and have integration with [Wokwi simulator] via the [VS Code Wokwi extension] (only available in VS Code and GitHub Codespaces).
 
-For a more detailed explanation about the template see [Understanding esp-template] chapter of [The Rust on ESP Book].
+For a more detailed explanation about the template, see [Understanding esp-template] chapter of [The Rust on ESP Book].
 
 [cargo-generate]: https://github.com/cargo-generate/cargo-generate
 [`esp-alloc`]: https://github.com/esp-rs/esp-alloc
