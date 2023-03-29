@@ -18,7 +18,7 @@ This repository offers Dev Containers supports for:
 If using VS Code or GitHub Codespaces, you can pull the image instead of building it
 from the Dockerfile by selecting the `image` property instead of `build` in
 `.devcontainer/devcontainer.json`. Further customization of the Dev Container can
-be achived, see [.devcontainer.json reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
+be achieved, see [`.devcontainer.json` reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
 
 When using Dev Containers, some tooling to facilitate building, flashing and
 simulating in Wokwi is also added.
@@ -65,40 +65,47 @@ simulating in Wokwi is also added.
 
 
 ### Wokwi Simulation
-When using a custom Wokwi project, please change the `WOKWI_PROJECT_ID` in
-`run-wokwi.sh`. If no project id is specified, a DevKit for {{ mcu }} will be
-used.
+
+#### VS Code Dev Containers and GitHub Codespaces
+
+The Dev Container includes the Wokwi Vs Code installed, hence you can simulate your built projects doing the following:
+1. Press `F1`
+2. Run `Wokwi: Start Simulator`
+
+> **Note**
+>
+>  We assume that the project is built in `debug` mode, if you want to simulate projects in release, please update the `elf` and  `firmware` proprieties in `wokwi.toml`.
+
+For more information and details on how to use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
+
+[Getting Started]: https://docs.wokwi.com/vscode/getting-started
+[Debugging your code]: https://docs.wokwi.com/vscode/debugging
 
 > **Warning**
 >
->  ESP32-S3 is not available in Wokwi
-
-- Terminal approach:
-
-    ```
-    scripts/run-wokwi.sh [debug | release]
-    ```
-    > If no argument is passed, `release` will be used as default
-
-- UI approach:
-
-    The default test task is already set to build the project, and it can be used
-    in VS Code and Gitpod:
-    - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Test Task` command
-    - With `Ctrl-Shift-,` or `Cmd-Shift-,`
-        > **Note**
-        >
-        > This Shortcut is not available in Gitpod by default.
-    - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Task` command and
-    select `Build & Run Wokwi`.
-    - From UI: Press `Build & Run Wokwi` on the left side of the Status Bar.
+>  ESP32-C2 and ESP32-C6 are not yet not supported in Wokwi.
 
 > **Warning**
 >
->  The simulation will pause if the browser tab is in the background.This may
-> affect the execution, specially when debuging.
+>  Gitpod does not, yet, support Wokwi extension hence, Wokwi simulation is not available in Gitpod.
 
-#### Debuging with Wokwi
+#### Gitpod
+
+[`wokwi-server`](https://github.com/MabezDev/wokwi-server) is part of the Gitpod image so, you can run:
+```sh
+wokwi-server --chip <chip> <pathToElf>
+```
+If you want to run your binary in a custom Wokwi project:
+```sh
+wokwi-server --chip <chip> --id <projectId> <pathToElf>
+```
+
+> **Warning**
+>
+>  The simulation will pause if the browser tab is in the background. This may
+> affect the execution, specially when debugging.
+
+##### Debugging with Wokwi in Gitpod
 
 Wokwi offers debugging with GDB.
 

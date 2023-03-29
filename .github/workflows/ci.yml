@@ -34,7 +34,7 @@ jobs:
           - command: fmt
             args: -- --check
           - command: clippy
-            args: --no-deps
+            args: --no-deps -- -D warnings -A clippy::empty_loop -A dead_code
     steps:
       - uses: actions/checkout@v3
         with:
@@ -99,7 +99,9 @@ jobs:
         with:
           context: .
           tags: test-${{ matrix.board }}:latest
-          build-args: ESP_BOARD=${{ matrix.board }}
+          build-args: |
+            ESP_BOARD=${{ matrix.board }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           file: test-${{ matrix.board }}/.devcontainer/Dockerfile
           push: false
       - name: Run the build process with Docker
