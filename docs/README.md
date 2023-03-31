@@ -83,7 +83,7 @@ For more information and details on how to use the Wokwi extension, see [Getting
 
 > **Warning**
 >
->  ESP32-C2 and ESP32-C6 are not yet not supported in Wokwi.
+>  ESP32-C2 is not, yet, not supported in Wokwi.
 
 > **Warning**
 >
