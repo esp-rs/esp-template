@@ -4,7 +4,7 @@ ignore = [".git", ".github", "README.md"]
 
 [hooks]
 pre = ["pre-script.rhai"]
-post = ["post-script.rhai"]
+# post = ["post-script.rhai"]
 
 [placeholders.mcu]
 type = "string"
@@ -30,7 +30,6 @@ default = false
 [conditional.'devcontainer == false']
 ignore = [
     ".devcontainer/",
-    ".vscode/launch.json",
     ".vscode/tasks.json",
     "docs/",
     "scripts/",
@@ -38,4 +37,4 @@ ignore = [
 ]
 
 [conditional.'wokwi == false']
-ignore = ["diagram.json", "wokwi.toml"]
+ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]

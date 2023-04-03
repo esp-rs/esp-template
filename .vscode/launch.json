@@ -8,7 +8,7 @@
       "program": "${workspaceFolder}/target/target.{{ gcc_target }}/debug/{{ crate_name }}",
       "cwd": "${workspaceFolder}",
       "MIMode": "gdb",
-      "miDebuggerPath": "/home/${input:user}/.espressif/tools/{{ gcc_target }}/esp-2021r2-patch3-8.4.0/{{ gcc_target }}/bin/{{ gcc_target }}-gdb",
+      "miDebuggerPath": "/home/esp/.espressif/tools/{{ gcc_target }}/esp-2021r2-patch3-8.4.0/{{ gcc_target }}/bin/{{ gcc_target }}-gdb",
       "miDebuggerServerAddress": "localhost:3333"
     }
   ]
