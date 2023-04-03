@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# Gitpod and VsCode Codespaces tasks do not source the user environment
-if [ "${USER}" == "gitpod" ]; then
-    which idf.py >/dev/null || {
-        source ~/export-esp.sh >/dev/null 2>&1
-    }
-elif [ "${CODESPACE_NAME}" != "" ]; then
-    which idf.py >/dev/null || {
-        source ~/export-esp.sh >/dev/null 2>&1
-    }
-fi
+which idf.py >/dev/null || {
+    source ~/export-esp.sh >/dev/null 2>&1
+}
 
 case "$1" in
 "" | "release")

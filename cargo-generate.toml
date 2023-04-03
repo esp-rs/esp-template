@@ -19,7 +19,7 @@ default = false
 
 [placeholders.devcontainer]
 type = "bool"
-prompt = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?"
+prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
 default = false
 
 [conditional.'devcontainer == false']
@@ -30,8 +30,6 @@ ignore = [
     "docs/",
     "scripts/",
     ".dockerignore",
-    ".gitpod.Dockerfile",
-    ".gitpod.yml",
     "diagram.json",
     "wokwi.toml",
 ]

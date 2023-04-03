@@ -13,10 +13,9 @@ After running the command, there will be a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model.
 - `Enable allocations via the esp-alloc crate?`: Adds [`esp-alloc`] dependency, and initializes the heap.
-- `Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?`: Adds support for:
+- `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
    -  [VS Code Dev Containers]
    -  [GitHub Codespaces]
-   -  [Gitpod]
 
    Dev Containers also allow flashing from the container using [web flash] and have integration with [Wokwi simulator] via the [VS Code Wokwi extension] (only available in VS Code and GitHub Codespaces).
 
@@ -26,7 +25,6 @@ For a more detailed explanation about the template, see [Understanding esp-templ
 [`esp-alloc`]: https://github.com/esp-rs/esp-alloc
 [VS Code Dev Containers]: https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container
 [GitHub Codespaces]: https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace
-[Gitpod]: https://www.gitpod.io
 [Wokwi simulator]: https://wokwi.com/
 [VS Code Wokwi extension]: https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode
 [web flash]: https://github.com/bjoernQ/esp-web-flash-server
