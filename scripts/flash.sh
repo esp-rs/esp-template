@@ -18,11 +18,4 @@ case "$1" in
     ;;
 esac
 
-export ESP_ARCH=
-{%- if mcu == "esp32" or mcu == "esp32s2" or mcu == "esp32s3" -%}
-xtensa-{{ mcu }}-none-elf
-{%- else -%}
-riscv32imac-unknown-none-elf
-{%- endif %}
-
-web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+web-flash --chip {{ mcu }} target/{{ rust_target }}xº/${BUILD_MODE}/{{ crate_name }}
