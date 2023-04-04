@@ -49,11 +49,7 @@ RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \
     --export-file /home/${CONTAINER_USER}/export-esp.sh
 
 # Set default toolchain
-RUN if [ "${ESP_BOARD}" = "all" ] || echo "$ESP_BOARD" | grep -q "esp32c"; then \
-    rustup default nightly; \
-    else \
-    rustup default esp; \
-    fi
+RUN rustup default {{ toolchain }}
 
 # Activate ESP environment
 RUN echo "source /home/${CONTAINER_USER}/export-esp.sh" >> ~/.bashrc

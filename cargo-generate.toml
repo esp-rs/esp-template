@@ -19,19 +19,22 @@ default = false
 
 [placeholders.devcontainer]
 type = "bool"
-prompt = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)?"
+prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
+default = false
+
+[placeholders.wokwi]
+type = "bool"
+prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
 
 [conditional.'devcontainer == false']
 ignore = [
     ".devcontainer/",
-    ".vscode/launch.json",
     ".vscode/tasks.json",
     "docs/",
     "scripts/",
     ".dockerignore",
-    ".gitpod.Dockerfile",
-    ".gitpod.yml",
-    "diagram.json",
-    "wokwi.toml",
 ]
+
+[conditional.'wokwi == false']
+ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]

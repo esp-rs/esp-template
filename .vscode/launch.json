@@ -2,30 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "gdb",
-      "request": "attach",
-      "name": "Wokwi Debug",
-      "executable":
-      "${workspaceFolder}/target/target.{{ gcc_target }}/debug/{{ crate_name }}",
-      "target": "localhost:9333",
-      "remote": true,
-      "gdbpath":
-      "/home/${input:user}/.espressif/tools/{{ gcc_target }}/esp-2021r2-patch3-8.4.0/{{ gcc_target }}/bin/{{ gcc_target }}-gdb",
-      "cwd": "${workspaceRoot}",
-      "stopAtConnect": true,
-      "valuesFormatting": "parseText"
-    }
-  ],
-  "inputs": [
-    {
-      "type": "pickString",
-      "id": "user",
-      "description": "Select the user: esp for VsCode and Codespaces and gitpod for Gitpod:",
-      "options": [
-        "esp",
-        "gitpod"
-      ],
-      "default": "esp"
+      "name": "Wokwi GDB",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/target/{{ rust_target }}/debug/{{ crate_name }}",
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "${userHome}/.espressif/tools/{{ gcc_target }}/esp-2021r2-patch3-8.4.0/{{ gcc_target }}/bin/{{ gcc_target }}-gdb",
+      "miDebuggerServerAddress": "localhost:3333"
     }
   ]
 }
