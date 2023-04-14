@@ -72,7 +72,7 @@ let targets = #{
         rct_peripheral: "LP_CLKRST",
         toolchain: "nightly",
         rust_target: "riscv32imac-unknown-none-elf",
-        atomic_emulation: "riscv",
+        atomic_emulation: "none",
         gcc_target: "riscv32-esp-elf",
         hal_version: "0.1.0",
         wokwi_board: "board-esp32-c6-devkitc-1",
