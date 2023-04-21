@@ -12,11 +12,12 @@ cargo generate -a esp-rs/esp-template
 After running the command, there will be a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model.
-- `Enable allocations via the esp-alloc crate?`: Adds [`esp-alloc`] dependency, and initializes the heap.
-- `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension].
-- `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
-   -  [VS Code Dev Containers]
-   -  [GitHub Codespaces]
+- `Use template default values?`: Skips the rest of the prompts and uses their default value. If false, you will be prompted with:
+  - `Enable allocations via the esp-alloc crate?`: Adds [`esp-alloc`] dependency, and initializes the heap.
+  - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension].
+  - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
+     -  [VS Code Dev Containers]
+     -  [GitHub Codespaces]
 
    Dev Containers also allow flashing from the container using [web flash] and have the [VS Code Wokwi extension] already installed.
 
