@@ -7,8 +7,8 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 hal = { package = "{{ mcu }}-hal", version = "{{ hal_version }}" }
-esp-backtrace = { version = "0.6.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "print-uart"] }
-esp-println       = { version = "0.4.0", features = ["{{ mcu }}"] }
+esp-backtrace = { version = "0.7.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "print-uart"] }
+esp-println       = { version = "0.5.0", features = ["{{ mcu }}"] }
 {% if alloc -%}
-esp-alloc = { version = "0.2.0", features = ["oom-handler"] }
+esp-alloc = { version = "0.3.0", features = ["oom-handler"] }
 {% endif -%}
