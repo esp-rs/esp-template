@@ -12,17 +12,22 @@ prompt = "Which MCU to target?"
 choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32s2", "esp32s3"]
 default = "esp32"
 
-[placeholders.alloc]
+[placeholders.defaults]
+type = "bool"
+prompt = "Use template default values?"
+default = true
+
+[conditional.'defaults == false'.placeholders.alloc]
 type = "bool"
 prompt = "Enable allocations via the esp-alloc crate?"
 default = false
 
-[placeholders.devcontainer]
+[conditional.'defaults == false'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
 default = false
 
-[placeholders.wokwi]
+[conditional.'defaults == false'.placeholders.wokwi]
 type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
@@ -38,3 +43,14 @@ ignore = [
 
 [conditional.'wokwi == false']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
+
+[conditional.'defaults == true']
+ignore = [
+    ".devcontainer/",
+    ".vscode/",
+    "docs/",
+    "scripts/",
+    ".dockerignore",
+    "diagram.json",
+    "wokwi.toml",
+]
