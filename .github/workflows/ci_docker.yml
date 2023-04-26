@@ -1,11 +1,11 @@
-name: CI
+name: Container CI
 on:
   push:
-    paths-ignore:
-      - "**/README.md"
+    paths:
+      - "**/.devcontainer/**"
   pull_request:
-    paths-ignore:
-      - "**/README.md"
+    paths:
+      - "**/.devcontainer/**"
   schedule:
     - cron: "50 7 * * *"
 
@@ -22,39 +22,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 jobs:
-  rust-checks:
-    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }})
+  docker-checks:
+    name: Build project using the generated Dockerfile
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         board: ["esp32", "esp32s2", "esp32s3", "esp32c2", "esp32c3", "esp32c6"]
-        alloc: ["true", "false"]
-        action:
-          - command: build
-            args: --release
-          - command: fmt
-            args: -- --check
-          - command: clippy
-            args: --no-deps -- -D warnings -A clippy::empty_loop -A dead_code
     steps:
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
-      - name: Setup | Rust
-        if: matrix.board != 'esp32' && matrix.board != 'esp32s2' && matrix.board != 'esp32s3'
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          target: riscv32imc-unknown-none-elf
-          toolchain: nightly
-          components: clippy, rustfmt, rust-src
-      - name: Setup | Rust
-        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5
-        with:
-          default: true
-          buildtargets: ${{ matrix.board }}
-          ldproxy: false
       - uses: Swatinem/rust-cache@v2
       - name: Setup | cargo-generate (binaries)
         id: binaries
@@ -67,6 +45,24 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d defaults=false -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }}
-      - name: cargo ${{ matrix.action.command }}
-        run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true -d wokwi=false -d alloc=false
+      - name: Update ownership
+        run: |
+          sudo chown 1000:1000 -R test-${{ matrix.board }}
+      - uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: test-${{ matrix.board }}:latest
+          build-args: |
+            ESP_BOARD=${{ matrix.board }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          file: test-${{ matrix.board }}/.devcontainer/Dockerfile
+          push: false
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: test-${{ matrix.board }}:latest
+          options: -u esp -v ${{ github.workspace }}/test-${{ matrix.board }}:/home/esp/test-${{ matrix.board }}
+          run: |
+            cd /home/esp/test-${{ matrix.board }}
+            bash -c 'source /home/esp/export-esp.sh && cargo build'
