@@ -84,3 +84,10 @@ let target_properties = targets.get(target);
 for key in target_properties.keys() {
     variable::set(key, target_properties.get(key));
 }
+
+let defaults = variable::get("defaults");
+if defaults {
+    variable::set("alloc", false);
+    variable::set("devcontainer", false);
+    variable::set("wokwi", false);
+}
