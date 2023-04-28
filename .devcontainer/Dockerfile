@@ -1,3 +1,4 @@
+# Base image
 ARG VARIANT=bullseye-slim
 FROM debian:${VARIANT}
 ENV DEBIAN_FRONTEND=noninteractive
