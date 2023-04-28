@@ -1,2 +1,6 @@
 [toolchain]
 channel = "{{ toolchain }}"
+{%- if toolchain == "nightly" %}
+components = ["rust-src"]
+targets = ["riscv32imc-unknown-none-elf"]
+{% endif %}
