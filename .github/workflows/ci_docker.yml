@@ -2,10 +2,10 @@ name: Container CI
 on:
   push:
     paths:
-      - "**/.devcontainer/**"
+      - ".devcontainer/Dockerfile"
   pull_request:
     paths:
-      - "**/.devcontainer/**"
+      - ".devcontainer/Dockerfile"
   schedule:
     - cron: "50 7 * * *"
 
