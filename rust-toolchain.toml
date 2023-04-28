@@ -1,6 +1,6 @@
 [toolchain]
 channel = "{{ toolchain }}"
-{%- if toolchain == "nightly" %}
+{%- if arch == "riscv" %}
 components = ["rust-src"]
 targets = ["{{ rust_target }}"]
 {% endif %}
