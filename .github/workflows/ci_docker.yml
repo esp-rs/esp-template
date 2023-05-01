@@ -2,10 +2,10 @@ name: Container CI
 on:
   push:
     paths:
-      - "**/.devcontainer/**"
+      - ".devcontainer/Dockerfile"
   pull_request:
     paths:
-      - "**/.devcontainer/**"
+      - ".devcontainer/Dockerfile"
   schedule:
     - cron: "50 7 * * *"
 
@@ -45,7 +45,7 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d devcontainer=true -d wokwi=false -d alloc=false
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d defaults=false -d devcontainer=true -d wokwi=false -d alloc=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
