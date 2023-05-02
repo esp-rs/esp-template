@@ -40,15 +40,23 @@ fn main() -> ! {
     init_heap();
     {%- endif %}
     let peripherals = Peripherals::take();
-    let system = peripherals.{{ sys_peripheral }}.split();
+    let mut system = peripherals.{{ sys_peripheral }}.split();
     let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
 
     // Disable the RTC and TIMG watchdog timers
     let mut rtc = Rtc::new(peripherals.{{ rct_peripheral }});
-    let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
+    let timer_group0 = TimerGroup::new(
+        peripherals.TIMG0,
+        &clocks,
+        &mut system.peripheral_clock_control,
+    );
     let mut wdt0 = timer_group0.wdt;
     {% if has_tg1 -%}
-    let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
+    let timer_group1 = TimerGroup::new(
+        peripherals.TIMG1,
+        &clocks,
+        &mut system.peripheral_clock_control,
+    );
     let mut wdt1 = timer_group1.wdt;
     {% endif -%}
 
