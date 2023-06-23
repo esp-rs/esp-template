@@ -1,5 +1,3 @@
-system::command("cargo", ["fmt"]);
-
 // remove this output once espflash 2.x is default
 print();
 print();

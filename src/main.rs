@@ -36,7 +36,7 @@ fn init_heap() {
 {% endif %}
 #[entry]
 fn main() -> ! {
-    {% if alloc -%}
+    {%- if alloc %}
     init_heap();
     {%- endif %}
     let peripherals = Peripherals::take();
