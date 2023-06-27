@@ -85,8 +85,8 @@ for key in target_properties.keys() {
     variable::set(key, target_properties.get(key));
 }
 
-let defaults = variable::get("defaults");
-if defaults {
+let advanced = variable::get("advanced");
+if !advanced {
     variable::set("alloc", false);
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
