@@ -1,7 +1,6 @@
 [template]
 cargo_generate_version = ">=0.17.4"
 ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", "README.md"]
-include = [".github/workflows/rust_ci.yml"]
 
 [hooks]
 pre = ["pre-script.rhai"]
