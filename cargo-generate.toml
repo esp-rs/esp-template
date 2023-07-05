@@ -1,6 +1,7 @@
 [template]
 cargo_generate_version = ">=0.17.4"
-ignore = [".git", ".github", "README.md"]
+ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", "README.md"]
+include = [".github/workflows/rust_ci.yml"]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -31,7 +32,12 @@ type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
 
-[conditional.'devcontainer == false']
+[conditional.'advanced'.placeholders.ci]
+type = "bool"
+prompt = "Add CI files for GitHub Action?"
+default = false
+
+[conditional.'!devcontainer']
 ignore = [
     ".devcontainer/",
     ".vscode/tasks.json",
@@ -40,7 +46,10 @@ ignore = [
     ".dockerignore",
 ]
 
-[conditional.'wokwi == false']
+[conditional.'!ci']
+ignore = [".github"]
+
+[conditional.'!wokwi']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
 
 [conditional.'!advanced']
