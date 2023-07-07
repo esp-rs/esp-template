@@ -7,7 +7,7 @@ A minimalist template for use with [cargo-generate] to create `no_std` applicati
 To generate a project using this template:
 
 ```bash
-cargo generate -a esp-rs/esp-template
+cargo generate esp-rs/esp-template
 ```
 
 After running the command, there will be a few prompts:
