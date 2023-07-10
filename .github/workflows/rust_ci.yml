@@ -45,7 +45,7 @@ jobs:
           default: true
           buildtargets: {{ mcu }}
           ldproxy: false
-      {% endif -%}
+      {%- endif %}
       - name: Run command
         {%- raw %}
         run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
