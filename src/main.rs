@@ -8,8 +8,7 @@ use esp_backtrace as _;
 use esp_println::println;
 use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
 {% if logging -%}
-use log::{LevelFilter,info};
-use core::str::FromStr;
+use log::{info};
 {% endif -%}
 
 {%- if alloc %}
@@ -76,15 +75,13 @@ fn main() -> ! {
 
     {% if logging -%}
     // setup logger
-    const LEVEL: Option<&'static str> = option_env!("ESP_LOGLEVEL");
-    let filter = match LEVEL {
-        Some(lvl) => LevelFilter::from_str(lvl).unwrap_or_else(|_| LevelFilter::Info),
-        None => LevelFilter::Info,
-    };
-    esp_println::logger::init_logger(filter);
+    // To change the log_level change the env section in .config/cargo.toml
+    // or remove it and set ESP_LOGLEVEL manually before running cargo run
+    // this requires a clean rebuild because of https://github.com/rust-lang/cargo/issues/10358
+    esp_println::logger::init_logger_from_env();
     info!("Logger is setup");
     {% endif -%}
-
+ 
     println!("Hello world!");
 
     loop {}
