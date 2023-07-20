@@ -7,6 +7,11 @@ extern crate alloc;
 use esp_backtrace as _;
 use esp_println::println;
 use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
+{% if logging -%}
+use log::{LevelFilter,info};
+use core::str::FromStr;
+{% endif -%}
+
 {%- if alloc %}
 #[global_allocator]
 static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
@@ -67,6 +72,17 @@ fn main() -> ! {
     wdt0.disable();
     {% if has_tg1 -%}
     wdt1.disable();
+    {% endif -%}
+
+    {% if logging -%}
+    // setup logger
+    const LEVEL: Option<&'static str> = option_env!("ESP_LOGLEVEL");
+    let filter = match LEVEL {
+        Some(lvl) => LevelFilter::from_str(lvl).unwrap_or_else(|_| LevelFilter::Info),
+        None => LevelFilter::Info,
+    };
+    esp_println::logger::init_logger(filter);
+    info!("Logger is setup");
     {% endif -%}
 
     println!("Hello world!");

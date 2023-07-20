@@ -16,6 +16,7 @@ After running the command, there will be a few prompts:
 - `Configure advanced template options?`: If `false`, skips the rest of the prompts and uses their default value. If `true`, you will be prompted with:
   - `Enable allocations via the esp-alloc crate?`: Adds [`esp-alloc`] dependency, and initializes the heap.
   - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension].
+  - `Setup logging using the log crate?`: Adds [`log`] dependency and initializes logging.
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
      -  [VS Code Dev Containers]
      -  [GitHub Codespaces]
@@ -31,9 +32,9 @@ For a more detailed explanation about the template, see [Understanding esp-templ
 [Wokwi simulator]: https://wokwi.com/
 [VS Code Wokwi extension]: https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode
 [web flash]: https://github.com/bjoernQ/esp-web-flash-server
-[Understanding esp-template]: https://esp-rs.github.io/book/writing-your-own-application/no-std-applications/understanding-esp-template.html
+[Understanding esp-template]: https://esp-rs.github.io/book/writing-your-own-application/generate-project/esp-template.html
 [The Rust on ESP Book]: https://esp-rs.github.io/book/
-
+[`log`]: https://docs.rs/log/latest/log/
 
 ## License
 
