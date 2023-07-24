@@ -8,7 +8,7 @@ use esp_backtrace as _;
 use esp_println::println;
 use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
 {% if logging -%}
-use log::{info};
+use log::info;
 {% endif -%}
 
 {%- if alloc %}
