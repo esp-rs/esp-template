@@ -4,6 +4,7 @@ runner = "espflash flash --monitor"
 [build]
 rustflags = [
   "-C", "link-arg=-Tlinkall.x",
+  "-C", "link-arg=-Trom_functions.x",
 
 {%- if arch == "xtensa" %}
   "-C", "link-arg=-nostartfiles",
