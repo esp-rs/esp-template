@@ -31,6 +31,7 @@ jobs:
       matrix:
         board: ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
         alloc: ["true", "false"]
+        logging: ["true", "false"]
         action:
           - command: build
             args: --release
@@ -68,6 +69,6 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d ci=false
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d ci=false -d logging=${{ matrix.logging }}
       - name: cargo ${{ matrix.action.command }}
         run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}

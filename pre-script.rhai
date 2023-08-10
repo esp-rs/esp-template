@@ -103,4 +103,5 @@ if !advanced {
     variable::set("alloc", false);
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
+    variable::set("logging", false);
 }
