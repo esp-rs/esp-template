@@ -9,7 +9,7 @@ let targets = #{
         rust_target: "xtensa-esp32-none-elf",
         atomic_emulation: "none",
         gcc_target: "xtensa-esp32-elf",
-        hal_version: "0.13.0",
+        hal_version: "0.14.0",
         wokwi_board: "board-esp32-devkit-v1",
     },
      esp32c2: #{
@@ -22,7 +22,7 @@ let targets = #{
         rust_target: "riscv32imc-unknown-none-elf",
         atomic_emulation: "riscv",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.8.0",
+        hal_version: "0.9.0",
         wokwi_board: "",
     },
     esp32c3: #{
@@ -35,7 +35,7 @@ let targets = #{
         rust_target: "riscv32imc-unknown-none-elf",
         atomic_emulation: "riscv",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.10.0",
+        hal_version: "0.11.0",
         wokwi_board: "board-esp32-c3-devkitm-1",
     },
     esp32c6: #{
@@ -48,7 +48,7 @@ let targets = #{
         rust_target: "riscv32imac-unknown-none-elf",
         atomic_emulation: "none",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.3.0",
+        hal_version: "0.4.0",
         wokwi_board: "board-esp32-c6-devkitc-1",
     },
     esp32h2: #{
@@ -61,7 +61,7 @@ let targets = #{
         rust_target: "riscv32imac-unknown-none-elf",
         atomic_emulation: "none",
         gcc_target: "riscv32-esp-elf",
-        hal_version: "0.1.0",
+        hal_version: "0.2.0",
         wokwi_board: "",
     },
     esp32s2: #{
@@ -74,7 +74,7 @@ let targets = #{
         rust_target: "xtensa-esp32s2-none-elf",
         atomic_emulation: "esp32s2",
         gcc_target: "xtensa-esp32s2-elf",
-        hal_version: "0.10.0",
+        hal_version: "0.11.0",
         wokwi_board: "board-esp32-s2-devkitm-1",
     },
     esp32s3: #{
@@ -87,7 +87,7 @@ let targets = #{
         rust_target: "xtensa-esp32s3-none-elf",
         atomic_emulation: "none",
         gcc_target: "xtensa-esp32s3-elf",
-        hal_version: "0.10.0",
+        hal_version: "0.11.0",
         wokwi_board: "board-esp32-s3-devkitc-1",
     },
 };
