@@ -40,7 +40,7 @@ jobs:
           - command: clippy
             args: --no-deps -- -D warnings -A clippy::empty_loop -A dead_code
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: /home/runner/work/esp-template/esp-template/github-esp-template
       - name: Setup | Rust
