@@ -6,7 +6,7 @@ extern crate alloc;
 {% endif -%}
 use esp_backtrace as _;
 use esp_println::println;
-use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, timer::TimerGroup, Rtc};
+use hal::{clock::ClockControl, Delay, peripherals::Peripherals, prelude::*};
 {% if logging -%}
 use log::info;
 {% endif -%}
@@ -44,34 +44,9 @@ fn main() -> ! {
     init_heap();
     {%- endif %}
     let peripherals = Peripherals::take();
-    let mut system = peripherals.{{ sys_peripheral }}.split();
+    let system = peripherals.{{ sys_peripheral }}.split();
     let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
-
-    // Disable the RTC and TIMG watchdog timers
-    let mut rtc = Rtc::new(peripherals.{{ rct_peripheral }});
-    let timer_group0 = TimerGroup::new(
-        peripherals.TIMG0,
-        &clocks,
-        &mut system.peripheral_clock_control,
-    );
-    let mut wdt0 = timer_group0.wdt;
-    {% if has_tg1 -%}
-    let timer_group1 = TimerGroup::new(
-        peripherals.TIMG1,
-        &clocks,
-        &mut system.peripheral_clock_control,
-    );
-    let mut wdt1 = timer_group1.wdt;
-    {% endif -%}
-
-    {% if has_swd -%}
-    rtc.swd.disable();
-    {% endif -%}
-    rtc.rwdt.disable();
-    wdt0.disable();
-    {% if has_tg1 -%}
-    wdt1.disable();
-    {% endif -%}
+    let mut delay = Delay::new(&clocks);
 
     {% if logging -%}
     // setup logger
@@ -81,8 +56,11 @@ fn main() -> ! {
     esp_println::logger::init_logger_from_env();
     info!("Logger is setup");
     {% endif -%}
- 
+
     println!("Hello world!");
 
-    loop {}
+    loop {
+        println!("Loop...");
+        delay.delay_ms(500u32);
+    }
 }
