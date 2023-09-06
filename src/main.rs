@@ -6,7 +6,7 @@ extern crate alloc;
 {% endif -%}
 use esp_backtrace as _;
 use esp_println::println;
-use hal::{clock::ClockControl, Delay, peripherals::Peripherals, prelude::*};
+use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 {% if logging -%}
 use log::info;
 {% endif -%}
