@@ -3,6 +3,7 @@
 
 {% if alloc -%}
 extern crate alloc;
+use core::mem::MaybeUninit;
 {% endif -%}
 use esp_backtrace as _;
 use esp_println::println;
@@ -17,24 +18,10 @@ static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
 
 fn init_heap() {
     const HEAP_SIZE: usize = 32 * 1024;
-
-    extern "C" {
-        static mut _heap_start: u32;
-        {%- if arch == "xtensa" %}
-        static mut _heap_end: u32;
-        {%- endif %}
-    }
+    static mut HEAP: MaybeUninit<[u8; HEAP_SIZE]> = MaybeUninit::uninit();
 
     unsafe {
-        let heap_start = &_heap_start as *const _ as usize;
-        {%- if arch == "xtensa" %}
-        let heap_end = &_heap_end as *const _ as usize;
-        assert!(
-            heap_end - heap_start > HEAP_SIZE,
-            "Not enough available heap memory."
-        );
-        {%- endif %}
-        ALLOCATOR.init(heap_start as *mut u8, HEAP_SIZE);
+        ALLOCATOR.init(HEAP.as_mut_ptr() as *mut u8, HEAP_SIZE);
     }
 }
 {% endif %}
