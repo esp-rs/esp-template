@@ -21,6 +21,11 @@ type = "bool"
 prompt = "Enable allocations via the esp-alloc crate?"
 default = false
 
+[conditional.'advanced'.placeholders.wifi]
+type    = "bool"
+prompt  = "Enable WiFi/Bluetooth/ESP-NOW via the esp-wifi crate?"
+default = false
+
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"

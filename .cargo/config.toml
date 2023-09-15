@@ -10,7 +10,9 @@ ESP_LOGLEVEL="DEBUG"
 [build]
 rustflags = [
   "-C", "link-arg=-Tlinkall.x",
-
+{% if wifi -%}
+  "-C", "link-arg=-Trom_functions.x",
+{% endif -%}
 {%- if arch == "xtensa" %}
   "-C", "link-arg=-nostartfiles",
 {% else %}
