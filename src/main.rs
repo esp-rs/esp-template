@@ -20,7 +20,12 @@ use esp_wifi::{
     wifi_interface::WifiStack,
     EspWifiInitFor,
 };
+{%- if arch == "riscv" %}
 use hal::{systimer::SystemTimer, Rng};
+{% else -%}
+use hal::Rng;
+{% if logging -%}
+
 use smoltcp::iface::SocketStorage;
 {% endif -%}
 {% if logging -%}
@@ -68,7 +73,17 @@ fn main() -> ! {
 
 
     {% if wifi -%}
+    {%- if arch == "riscv" %}
     let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
+    {% else -%}
+    let timer = hal::timer::TimerGroup::new(
+        peripherals.TIMG1,
+        &clocks,
+        &mut system.peripheral_clock_control,
+    )
+    .timer0;
+    {% endif -%}
+
     let init = initialize(
         EspWifiInitFor::Wifi,
         timer,
@@ -77,7 +92,11 @@ fn main() -> ! {
         &clocks,
     )
     .unwrap();
+    {% if mcu == "esp32s2" -%}
+    let wifi = peripherals.RADIO.split();
+    {% else -%}
     let (wifi, ..) = peripherals.RADIO.split();
+    {% endif -%}
     let mut socket_set_entries: [SocketStorage; 3] = Default::default();
     let (iface, device, mut controller, sockets) =
         create_network_interface(&init, wifi, WifiMode::Sta, &mut socket_set_entries).unwrap();
