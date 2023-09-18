@@ -4,7 +4,7 @@ runner = "espflash flash --monitor"
 
 {% if logging -%}
 [env]
-ESP_LOGLEVEL="DEBUG"
+ESP_LOGLEVEL="INFO"
 {% endif -%}
 
 [build]

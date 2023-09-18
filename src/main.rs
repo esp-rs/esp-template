@@ -52,7 +52,7 @@ fn main() -> ! {
     {%- endif %}
     let peripherals = Peripherals::take();
     let system = peripherals.{{ sys_peripheral }}.split();
-    let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+    let clocks = ClockControl::max(system.clock_control).freeze();
     let mut delay = Delay::new(&clocks);
 
     {% if logging -%}
