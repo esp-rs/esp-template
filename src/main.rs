@@ -152,7 +152,6 @@ fn main() -> ! {
         }
     }
     {% endif -%}
-
     loop {
         println!("Loop...");
         delay.delay_ms(500u32);
