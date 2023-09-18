@@ -20,16 +20,14 @@ use esp_wifi::{
     wifi_interface::WifiStack,
     EspWifiInitFor,
 };
+
 {% if arch == "riscv" -%}
 use hal::{systimer::SystemTimer, Rng};
 {% else -%}
-use hal::Rng;
+use hal::{timer::TimerGroup, Rng};
 {% endif -%}
 
 use smoltcp::iface::SocketStorage;
-{% endif -%}
-{% if logging -%}
-use log::info;
 {% endif -%}
 
 {% if wifi -%}
@@ -71,14 +69,14 @@ fn main() -> ! {
     // or remove it and set ESP_LOGLEVEL manually before running cargo run
     // this requires a clean rebuild because of https://github.com/rust-lang/cargo/issues/10358
     esp_println::logger::init_logger_from_env();
-    info!("Logger is setup");
+    log::info!("Logger is setup");
     {% endif -%}
     println!("Hello world!");
     {% if wifi -%}
     {% if arch == "riscv" -%}
     let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
     {% else -%}
-    let timer = hal::timer::TimerGroup::new(
+    let timer = TimerGroup::new(
         peripherals.TIMG1,
         &clocks,
         &mut system.peripheral_clock_control,
