@@ -21,7 +21,7 @@ type = "bool"
 prompt = "Enable allocations via the esp-alloc crate?"
 default = false
 
-[conditional.'advanced'.placeholders.wifi]
+[conditional.'advanced && mcu != "esp32h2"'.placeholders.wifi]
 type    = "bool"
 prompt  = "Enable WiFi/Bluetooth/ESP-NOW via the esp-wifi crate?"
 default = false
