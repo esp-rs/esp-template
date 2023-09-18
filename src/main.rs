@@ -20,11 +20,12 @@ use esp_wifi::{
     wifi_interface::WifiStack,
     EspWifiInitFor,
 };
-{%- if arch == "riscv" %}
+{% if arch == "riscv" -%}
 use hal::{systimer::SystemTimer, Rng};
 {% else -%}
 use hal::Rng;
 {% endif -%}
+
 use smoltcp::iface::SocketStorage;
 {% endif -%}
 {% if logging -%}
@@ -36,7 +37,7 @@ const SSID: &str = env!("SSID");
 const PASSWORD: &str = env!("PASSWORD");
 {% endif -%}
 
-{%- if alloc %}
+{% if alloc -%}
 #[global_allocator]
 static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
 
@@ -48,14 +49,19 @@ fn init_heap() {
         ALLOCATOR.init(HEAP.as_mut_ptr() as *mut u8, HEAP_SIZE);
     }
 }
-{% endif %}
+{% endif -%}
 #[entry]
 fn main() -> ! {
     {%- if alloc %}
     init_heap();
-    {%- endif %}
+    {%- endif   %}
     let peripherals = Peripherals::take();
+    {% if arch == "xtensa" and wifi-%}
+    let mut system = peripherals.{{ sys_peripheral }}.split();
+    {% else -%}
     let system = peripherals.{{ sys_peripheral }}.split();
+    {% endif -%}
+
     let clocks = ClockControl::max(system.clock_control).freeze();
     let mut delay = Delay::new(&clocks);
 
@@ -69,7 +75,7 @@ fn main() -> ! {
     {% endif -%}
     println!("Hello world!");
     {% if wifi -%}
-    {%- if arch == "riscv" %}
+    {% if arch == "riscv" -%}
     let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
     {% else -%}
     let timer = hal::timer::TimerGroup::new(
