@@ -24,8 +24,7 @@ use esp_wifi::{
 use hal::{systimer::SystemTimer, Rng};
 {% else -%}
 use hal::Rng;
-{% if logging -%}
-
+{% endif -%}
 use smoltcp::iface::SocketStorage;
 {% endif -%}
 {% if logging -%}
@@ -68,10 +67,7 @@ fn main() -> ! {
     esp_println::logger::init_logger_from_env();
     info!("Logger is setup");
     {% endif -%}
-
     println!("Hello world!");
-
-
     {% if wifi -%}
     {%- if arch == "riscv" %}
     let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
@@ -83,7 +79,6 @@ fn main() -> ! {
     )
     .timer0;
     {% endif -%}
-
     let init = initialize(
         EspWifiInitFor::Wifi,
         timer,

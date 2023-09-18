@@ -41,7 +41,7 @@ jobs:
           - command: fmt
             args: -- --check
           - command: clippy
-            args: --no-deps -- -D warnings -A dead_code
+            args: --no-deps -- -D warnings -A dead_code -A empty_loop
     steps:
       - uses: actions/checkout@v4
         with:
