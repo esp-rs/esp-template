@@ -8,11 +8,18 @@ use core::mem::MaybeUninit;
 use esp_backtrace as _;
 use esp_println::println;
 use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
-{% if logging -%}
-use log::info;
+
+{% if wifi -%}
+use esp_wifi::{initialize, EspWifiInitFor};
+
+{% if arch == "riscv" -%}
+use hal::{systimer::SystemTimer, Rng};
+{% else -%}
+use hal::{timer::TimerGroup, Rng};
+{% endif -%}
 {% endif -%}
 
-{%- if alloc %}
+{% if alloc -%}
 #[global_allocator]
 static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
 
@@ -24,15 +31,20 @@ fn init_heap() {
         ALLOCATOR.init(HEAP.as_mut_ptr() as *mut u8, HEAP_SIZE);
     }
 }
-{% endif %}
+{% endif -%}
 #[entry]
 fn main() -> ! {
     {%- if alloc %}
     init_heap();
-    {%- endif %}
+    {%- endif   %}
     let peripherals = Peripherals::take();
+    {% if arch == "xtensa" and wifi-%}
+    let mut system = peripherals.{{ sys_peripheral }}.split();
+    {% else -%}
     let system = peripherals.{{ sys_peripheral }}.split();
-    let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+    {% endif -%}
+
+    let clocks = ClockControl::max(system.clock_control).freeze();
     let mut delay = Delay::new(&clocks);
 
     {% if logging -%}
@@ -41,11 +53,29 @@ fn main() -> ! {
     // or remove it and set ESP_LOGLEVEL manually before running cargo run
     // this requires a clean rebuild because of https://github.com/rust-lang/cargo/issues/10358
     esp_println::logger::init_logger_from_env();
-    info!("Logger is setup");
+    log::info!("Logger is setup");
     {% endif -%}
-
     println!("Hello world!");
-
+    {% if wifi -%}
+    {% if arch == "riscv" -%}
+    let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
+    {% else -%}
+    let timer = TimerGroup::new(
+        peripherals.TIMG1,
+        &clocks,
+        &mut system.peripheral_clock_control,
+    )
+    .timer0;
+    {% endif -%}
+    let _init = initialize(
+        EspWifiInitFor::Wifi,
+        timer,
+        Rng::new(peripherals.RNG),
+        system.radio_clock_control,
+        &clocks,
+    )
+    .unwrap();
+    {% endif -%}
     loop {
         println!("Loop...");
         delay.delay_ms(500u32);

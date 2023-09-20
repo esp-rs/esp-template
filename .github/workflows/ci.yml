@@ -13,6 +13,8 @@ on:
 env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SSID: SSID
+  PASSWORD: PASSWORD
 
 # Cancel any currently running workflows from the same PR, branch, or
 # tag when a new workflow is triggered.
@@ -24,7 +26,7 @@ concurrency:
 
 jobs:
   rust-checks:
-    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }} logging=${{ matrix.logging }})
+    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }} wifi=${{ matrix.wifi }} logging=${{ matrix.logging }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -32,13 +34,14 @@ jobs:
         board: ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
         alloc: ["true", "false"]
         logging: ["true", "false"]
+        wifi: ["true", "false"]
         action:
           - command: build
             args: --release
           - command: fmt
             args: -- --check
           - command: clippy
-            args: --no-deps -- -D warnings -A dead_code
+            args: --no-deps -- -D warnings -A dead_code -A clippy::empty_loop
     steps:
       - uses: actions/checkout@v4
         with:
@@ -69,6 +72,10 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - name: Generate
+        if: matrix.board == 'esp32h2'
         run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d ci=false -d logging=${{ matrix.logging }}
+      - name: Generate
+        if: matrix.board != 'esp32h2'
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d wifi=${{ matrix.wifi }} -d ci=false -d logging=${{ matrix.logging }}
       - name: cargo ${{ matrix.action.command }}
         run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
