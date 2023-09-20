@@ -1,3 +1,3 @@
-if variable::get("wifi"){
+if variable::get("mcu") != "esp32h2" && variable::get("wifi"){
     print("\nFor more information and examples of esp-wifi showcasing Wifi,BLE and ESP-NOW, see https://github.com/esp-rs/esp-wifi/blob/main/examples.md\n");
 }
