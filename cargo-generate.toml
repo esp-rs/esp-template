@@ -4,6 +4,7 @@ ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", "
 
 [hooks]
 pre = ["pre-script.rhai"]
+post = ["post-script.rhai"]
 
 [placeholders.mcu]
 type = "string"
