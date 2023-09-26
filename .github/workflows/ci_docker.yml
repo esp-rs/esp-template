@@ -46,6 +46,10 @@ jobs:
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - name: Generate
+        if: matrix.board == 'esp32h2'
+        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=true -d wokwi=false -d alloc=false -d ci=false -d logging=false
+      - name: Generate
+        if: matrix.board != 'esp32h2'
         run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d wifi=false -d devcontainer=true -d wokwi=false -d alloc=false -d ci=false -d logging=false
       - name: Update ownership
         run: |
