@@ -38,7 +38,7 @@ jobs:
         with:
           target: {{ rust_target }}
           toolchain: nightly
-          components: rust-src
+          components: rust-src, rustfmt, clippy
       {%- else %}
         uses: esp-rs/xtensa-toolchain@v1.5
         with:
