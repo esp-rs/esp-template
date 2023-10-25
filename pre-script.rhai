@@ -10,7 +10,7 @@ let targets = #{
         atomic_emulation: "none",
         gcc_target: "xtensa-esp32-elf",
         hal_version: "0.15.0",
-        wokwi_board: "board-esp32-devkit-v1",
+        wokwi_board: "board-esp32-devkit-c-v4",
     },
      esp32c2: #{
         arch: "riscv",
@@ -62,7 +62,7 @@ let targets = #{
         atomic_emulation: "none",
         gcc_target: "riscv32-esp-elf",
         hal_version: "0.3.0",
-        wokwi_board: "",
+        wokwi_board: "board-esp32-h2-devkitm-1",
     },
     esp32s2: #{
         arch: "xtensa",
