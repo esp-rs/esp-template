@@ -20,7 +20,7 @@ rustflags = [
   # NOTE: May negatively impact performance of produced code
   "-C", "force-frame-pointers",
 {% endif -%}
-{%- if atomic_emulation == "riscv" %}
+{%- if atomic_emulation and arch == "riscv" %}
   # comment the cfgs below if you do _not_ wish to emulate atomics.
   # enable the atomic codegen option for RISCV
   "-C", "target-feature=+a",
@@ -37,7 +37,7 @@ rustflags = [
   "--cfg", 'target_has_atomic="32"',
   "--cfg", 'target_has_atomic="ptr"',
 {% endif -%}
-{%- if atomic_emulation == "esp32s2" %}
+{%- if atomic_emulation and arch == "xtensa" %}
   # enable the atomic codegen option for Xtensa
   "-C", "target-feature=+s32c1i",
 
