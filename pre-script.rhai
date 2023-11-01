@@ -1,101 +1,71 @@
-let targets = #{
+let metadata = #{
+    // Xtensa devices:
     esp32: #{
-        arch: "xtensa",
-        has_swd: false,
-        has_tg1: true,
-        sys_peripheral: "DPORT",
-        rct_peripheral: "RTC_CNTL",
-        toolchain: "esp",
-        rust_target: "xtensa-esp32-none-elf",
-        atomic_emulation: "none",
-        gcc_target: "xtensa-esp32-elf",
-        hal_version: "0.15.0",
+        hal_version: "0.16.0",
         wokwi_board: "board-esp32-devkit-c-v4",
     },
-     esp32c2: #{
-        arch: "riscv",
-        has_swd: true,
-        has_tg1: false,
-        sys_peripheral: "SYSTEM",
-        rct_peripheral: "RTC_CNTL",
-        toolchain: "nightly",
-        rust_target: "riscv32imc-unknown-none-elf",
-        atomic_emulation: "riscv",
-        gcc_target: "riscv32-esp-elf",
-        hal_version: "0.10.0",
-        wokwi_board: "",
-    },
-    esp32c3: #{
-        arch: "riscv",
-        has_swd: true,
-        has_tg1: true,
-        sys_peripheral: "SYSTEM",
-        rct_peripheral: "RTC_CNTL",
-        toolchain: "nightly",
-        rust_target: "riscv32imc-unknown-none-elf",
-        atomic_emulation: "riscv",
-        gcc_target: "riscv32-esp-elf",
-        hal_version: "0.12.0",
-        wokwi_board: "board-esp32-c3-devkitm-1",
-    },
-    esp32c6: #{
-        arch: "riscv",
-        has_swd: true,
-        has_tg1: true,
-        sys_peripheral: "PCR",
-        rct_peripheral: "LP_CLKRST",
-        toolchain: "nightly",
-        rust_target: "riscv32imac-unknown-none-elf",
-        atomic_emulation: "none",
-        gcc_target: "riscv32-esp-elf",
-        hal_version: "0.5.0",
-        wokwi_board: "board-esp32-c6-devkitc-1",
-    },
-    esp32h2: #{
-        arch: "riscv",
-        has_swd: true,
-        has_tg1: true,
-        sys_peripheral: "PCR",
-        rct_peripheral: "LP_CLKRST",
-        toolchain: "nightly",
-        rust_target: "riscv32imac-unknown-none-elf",
-        atomic_emulation: "none",
-        gcc_target: "riscv32-esp-elf",
-        hal_version: "0.3.0",
-        wokwi_board: "board-esp32-h2-devkitm-1",
-    },
     esp32s2: #{
-        arch: "xtensa",
-        has_swd: false,
-        has_tg1: true,
-        sys_peripheral: "SYSTEM",
-        rct_peripheral: "RTC_CNTL",
-        toolchain: "esp",
-        rust_target: "xtensa-esp32s2-none-elf",
-        atomic_emulation: "esp32s2",
-        gcc_target: "xtensa-esp32s2-elf",
-        hal_version: "0.12.0",
+        atomic_emulation: true,
+        hal_version: "0.13.0",
         wokwi_board: "board-esp32-s2-devkitm-1",
     },
     esp32s3: #{
-        arch: "xtensa",
-        has_swd: false,
-        has_tg1: true,
-        sys_peripheral: "SYSTEM",
-        rct_peripheral: "RTC_CNTL",
-        toolchain: "esp",
-        rust_target: "xtensa-esp32s3-none-elf",
-        atomic_emulation: "none",
-        gcc_target: "xtensa-esp32s3-elf",
-        hal_version: "0.12.0",
+        hal_version: "0.13.0",
         wokwi_board: "board-esp32-s3-devkitc-1",
+    },
+
+    // RISC-V devices:
+     esp32c2: #{
+        atomic_emulation: true,
+        extensions: "imc",
+        hal_version: "0.11.0",
+        wokwi_board: "",
+    },
+    esp32c3: #{
+        atomic_emulation: true,
+        extensions: "imc",
+        hal_version: "0.13.0",
+        wokwi_board: "board-esp32-c3-devkitm-1",
+    },
+    esp32c6: #{
+        extensions: "imac",
+        hal_version: "0.6.0",
+        wokwi_board: "board-esp32-c6-devkitc-1",
+    },
+    esp32h2: #{
+        extensions: "imac",
+        hal_version: "0.4.0",
+        wokwi_board: "board-esp32-h2-devkitm-1",
     },
 };
 
-let target = variable::get("mcu");
-let target_properties = targets.get(target);
-for key in target_properties.keys() {
-    variable::set(key, target_properties.get(key));
+let mcu = variable::get("mcu");
+let meta = metadata.get(mcu);
+
+if meta.contains("atomic_emulation") {
+    variable::set("atomic_emulation", meta.get("atomic_emulation"));
+} else {
+    variable::set("atomic_emulation", false);
+}
+
+variable::set("hal_version", meta.get("hal_version"));
+
+if mcu in ["esp32", "esp32s2", "esp32s3"] {
+    // Xtensa devices:
+    variable::set("arch", "xtensa");
+    variable::set("gcc_target", `xtensa-${mcu}-elf`);
+    variable::set("has_swd", false);
+    variable::set("rust_target", `xtensa-${mcu}-none-elf`);
+    variable::set("toolchain", "esp");
+} else {
+    // RISC-V devices:
+    let extensions = meta.get("extensions");
+
+    variable::set("arch", "riscv");
+    variable::set("gcc_target", "riscv32-esp-elf");
+    variable::set("has_swd", true);
+    variable::set("rust_target", `riscv32${extensions}-unknown-none-elf`);
+    variable::set("toolchain", "nightly");
 }
 
 let advanced = variable::get("advanced");

@@ -36,13 +36,9 @@ fn init_heap() {
 fn main() -> ! {
     {%- if alloc %}
     init_heap();
-    {%- endif   %}
+    {%- endif %}
     let peripherals = Peripherals::take();
-    {% if arch == "xtensa" and wifi-%}
-    let mut system = peripherals.{{ sys_peripheral }}.split();
-    {% else -%}
-    let system = peripherals.{{ sys_peripheral }}.split();
-    {% endif -%}
+    let system = peripherals.SYSTEM.split();
 
     let clocks = ClockControl::max(system.clock_control).freeze();
     let mut delay = Delay::new(&clocks);
@@ -60,12 +56,7 @@ fn main() -> ! {
     {% if arch == "riscv" -%}
     let timer = SystemTimer::new(peripherals.SYSTIMER).alarm0;
     {% else -%}
-    let timer = TimerGroup::new(
-        peripherals.TIMG1,
-        &clocks,
-        &mut system.peripheral_clock_control,
-    )
-    .timer0;
+    let timer = TimerGroup::new(peripherals.TIMG1, &clocks).timer0;
     {% endif -%}
     let _init = initialize(
         EspWifiInitFor::Wifi,
