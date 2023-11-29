@@ -49,6 +49,8 @@ if meta.contains("atomic_emulation") {
 }
 
 variable::set("hal_version", meta.get("hal_version"));
+variable::set("wokwi_board", meta.get("wokwi_board"));
+
 
 if mcu in ["esp32", "esp32s2", "esp32s3"] {
     // Xtensa devices:
