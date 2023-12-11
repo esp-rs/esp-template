@@ -1,5 +1,5 @@
 # Base image
-ARG VARIANT=bullseye-slim
+ARG VARIANT=bookworm-slim
 FROM debian:${VARIANT}
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
@@ -14,7 +14,7 @@ ARG GITHUB_TOKEN
 # Install dependencies
 RUN apt-get update \
     && apt-get install -y git curl llvm-dev libclang-dev clang unzip \
-    libusb-1.0-0 libssl-dev libudev-dev pkg-config libpython2.7 \
+    libusb-1.0-0 libssl-dev libudev-dev pkg-config \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 # Set users
@@ -37,7 +37,11 @@ RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //'
     unzip "${HOME}/.cargo/bin/cargo-espflash.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/cargo-espflash.zip" && \
     chmod u+x "${HOME}/.cargo/bin/cargo-espflash" && \
-    curl -L "https://github.com/bjoernQ/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
+    curl -L "https://github.com/esp-rs/espflash/releases/latest/download/espflash-${ARCH}.zip" -o "${HOME}/.cargo/bin/espflash.zip" && \
+    unzip "${HOME}/.cargo/bin/espflash.zip" -d "${HOME}/.cargo/bin/" && \
+    rm "${HOME}/.cargo/bin/espflash.zip" && \
+    chmod u+x "${HOME}/.cargo/bin/espflash" && \
+    curl -L "https://github.com/esp-rs/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
     unzip "${HOME}/.cargo/bin/web-flash.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/web-flash.zip" && \
     chmod u+x "${HOME}/.cargo/bin/web-flash"
