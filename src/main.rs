@@ -7,15 +7,15 @@ use core::mem::MaybeUninit;
 {% endif -%}
 use esp_backtrace as _;
 use esp_println::println;
-use hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
+use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 
 {% if wifi -%}
 use esp_wifi::{initialize, EspWifiInitFor};
 
 {% if arch == "riscv" -%}
-use hal::{systimer::SystemTimer, Rng};
+use {{ mcu }}_hal::{systimer::SystemTimer, Rng};
 {% else -%}
-use hal::{timer::TimerGroup, Rng};
+use {{ mcu }}_hal::{timer::TimerGroup, Rng};
 {% endif -%}
 {% endif -%}
 
