@@ -23,7 +23,7 @@ After running the command, there will be a few prompts:
 
    Dev Containers also allow flashing from the container using [web flash] and have the [VS Code Wokwi extension] already installed.
 
-For a more detailed explanation about the template, see [Understanding esp-template] chapter of [The Rust on ESP Book].
+For a more detailed explanation of the template, see [Understanding esp-template] chapter of [The Rust on ESP Book]. If you're seeking a beginner's guide for utilizing `no_std` (bare metal), consult the [Embedded Rust (no_std) on Espressif][no_std-training] training.
 
 [cargo-generate]: https://github.com/cargo-generate/cargo-generate
 [`esp-alloc`]: https://github.com/esp-rs/esp-alloc
@@ -35,6 +35,7 @@ For a more detailed explanation about the template, see [Understanding esp-templ
 [Understanding esp-template]: https://esp-rs.github.io/book/writing-your-own-application/generate-project/esp-template.html
 [The Rust on ESP Book]: https://esp-rs.github.io/book/
 [`log`]: https://docs.rs/log/latest/log/
+[no_std-training]: https://esp-rs.github.io/no_std-training/
 
 ## License
 
