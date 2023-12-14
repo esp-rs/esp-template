@@ -62,6 +62,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: install cargo-generate (binary)
+        continue-on-error: true
         id: binary
         run: |
           VERSION="$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)"
@@ -76,4 +77,4 @@ jobs:
         run: cargo install cargo-generate
 
       - name: generate and check
-        run: bash ./.github/verify.sh ${{ matrix.chip }}
+        run: bash /home/runner/work/esp-template/esp-template/esp-template-gh/.github/verify.sh ${{ matrix.chip }}
