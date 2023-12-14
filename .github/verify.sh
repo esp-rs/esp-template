@@ -2,6 +2,10 @@
 
 echo "Verifying $1"
 
+# If you want to execute this script locally, you need to update the path to
+# esp-template direcotry and execute it from a folder outside of the esp-template
+template_path="/home/runner/work/esp-template/esp-template/esp-template-gh"
+
 # Function to perform build, Rustfmt check, and Clippy check
 perform_checks() {
     cd "$1"
@@ -24,18 +28,14 @@ fi
 
 # Generate templates
 cargo generate \
-    --path "/home/runner/work/esp-template/esp-template/esp-template-gh" \
-    --silent --vcs=none --name=test-complex \
+    --path $template_path --name=test-complex --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=true -d logging=true $simple_wifi_arg \
-    -d mcu=$1
+    -d alloc=true -d logging=true $simple_wifi_arg -d mcu=$1
 
 cargo generate \
-    --path "/home/runner/work/esp-template/esp-template/esp-template-gh" \
-    --silent --vcs=none --name=test-simple \
+    --path $template_path --name=test-simple --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=false -d logging=false $complex_wifi_arg \
-    -d mcu=$1
+    -d alloc=false -d logging=false $complex_wifi_arg -d mcu=$1
 
 # Perform checks
 perform_checks test-complex
