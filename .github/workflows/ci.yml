@@ -76,26 +76,4 @@ jobs:
         run: cargo install cargo-generate
 
       - name: generate and check
-        run: |
-          function generate() {
-            cargo generate \
-              --path "/home/runner/work/esp-template/esp-template/esp-template-gh" \
-              --allow-commands --silent --vcs=none --name=test \
-              -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-              -d mcu="${{ matrix.chip }}" \
-              "$@"
-          }
-
-          function check() {
-            generate "$@"
-            pushd test/
-            cargo build --release
-            popd
-            rm -rf test/
-          }
-
-          # no alloc, no logging, no wifi:
-          check "-d" "alloc=false" "-d" "logging=false" "-d" "wifi=false"
-
-          # alloc, logging, wifi:
-          check "-d" "alloc=true" "-d" "logging=true" "-d" "wifi=true"
+        run: bash ./.github/verify.sh ${{ matrix.chip }}
