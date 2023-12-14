@@ -1,11 +1,17 @@
 echo "Verifying $1"
 # TODO: We might be able to check GITHUB_TOKEN and update the --path to make it work locally.
+if [ "$1" = "esp32h2" ]; then
+    # ESP32-H22 doesn't have a WiFi core
+    wifi=false
+else
+    wifi=true
+fi
 # Complex template
 cargo generate \
     --path "/home/runner/work/esp-template/esp-template/esp-template-gh" \
     --silent --vcs=none --name=test-complex \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=true -d logging=true -d wifi=true \
+    -d alloc=true -d logging=true -d wifi=$wifi \
     -d mcu=$1
 # Simple template
 cargo generate \
