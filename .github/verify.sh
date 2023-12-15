@@ -4,7 +4,7 @@ echo "Verifying $1"
 
 # If you want to execute this script locally, you need to update the path to
 # esp-template direcotry and execute it from a folder outside of the esp-template
-template_path="/home/runner/work/esp-template/esp-template/esp-template-gh"
+template_path="esp-template-gh"
 
 # Function to perform build, Rustfmt check, and Clippy check
 perform_checks() {

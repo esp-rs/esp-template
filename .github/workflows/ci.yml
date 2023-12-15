@@ -42,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          path: "/home/runner/work/esp-template/esp-template/esp-template-gh"
+          path: "esp-template-gh"
 
       # Rust toolchain for Xtensa:
       - if: matrix.chip == 'esp32' || matrix.chip == 'esp32s2' || matrix.chip == 'esp32s3'
@@ -61,21 +61,20 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: install cargo-generate (binary)
+      - name: Install cargo-generate (binary)
         continue-on-error: true
         id: binary
         run: |
           VERSION="$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)"
-          URL="https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
           sudo curl \
             -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$VERSION-x86_64-unknown-linux-gnu.tar.gz" \
             -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C "/home/runner/.cargo/bin/"
           chmod u+x "/home/runner/.cargo/bin/cargo-generate"
 
-      - name: install cargo-generate (source)
+      - name: Install cargo-generate (source)
         if: steps.binary.outcome != 'success'
         run: cargo install cargo-generate
 
       - name: generate and check
-        run: bash /home/runner/work/esp-template/esp-template/esp-template-gh/.github/verify.sh ${{ matrix.chip }}
+        run: bash esp-template-gh/.github/verify.sh ${{ matrix.chip }}
