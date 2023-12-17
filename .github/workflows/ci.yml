@@ -6,15 +6,13 @@ on:
   pull_request:
     paths-ignore:
       - "**/README.md"
-  schedule:
-    - cron: "50 7 * * *"
   workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SSID: SSID
-  PASSWORD: PASSWORD
+  SSID: ""
+  PASSWORD: ""
 
 # Cancel any currently running workflows from the same PR, branch, or
 # tag when a new workflow is triggered.
@@ -25,57 +23,58 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 jobs:
-  rust-checks:
-    name: cargo ${{ matrix.action.command }} - ${{ matrix.board }} (alloc=${{ matrix.alloc }} wifi=${{ matrix.wifi }} logging=${{ matrix.logging }})
+  verify:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
-        board: ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
-        alloc: ["true", "false"]
-        logging: ["true", "false"]
-        wifi: ["true", "false"]
-        action:
-          - command: build
-            args: --release
-          - command: fmt
-            args: -- --check
-          - command: clippy
-            args: --no-deps -- -D warnings -A dead_code -A clippy::empty_loop
+        chip: [
+            "esp32",
+            "esp32c2",
+            "esp32c3",
+            "esp32c6",
+            "esp32h2",
+            "esp32s2",
+            "esp32s3",
+          ]
+
     steps:
       - uses: actions/checkout@v4
         with:
-          path: /home/runner/work/esp-template/esp-template/github-esp-template
-      - name: Setup | Rust
-        if: matrix.board != 'esp32' && matrix.board != 'esp32s2' && matrix.board != 'esp32s3'
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          target: riscv32imc-unknown-none-elf
-          toolchain: nightly
-          components: clippy, rustfmt, rust-src
-      - name: Setup | Rust
-        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
+          path: "esp-template-gh"
+
+      # Rust toolchain for Xtensa:
+      - if: matrix.chip == 'esp32' || matrix.chip == 'esp32s2' || matrix.chip == 'esp32s3'
         uses: esp-rs/xtensa-toolchain@v1.5
         with:
           default: true
-          buildtargets: ${{ matrix.board }}
+          buildtargets: ${{ matrix.chip }}
           ldproxy: false
+
+      # Rust toolchain for RISC-V:
+      - if: matrix.chip != 'esp32' && matrix.chip != 'esp32s2' && matrix.chip != 'esp32s3'
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          target: riscv32imac-unknown-none-elf
+          components: clippy,rustfmt,rust-src
+
       - uses: Swatinem/rust-cache@v2
-      - name: Setup | cargo-generate (binaries)
-        id: binaries
+
+      - name: Install cargo-generate (binary)
         continue-on-error: true
+        id: binary
         run: |
-          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
-          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
-          chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name: Setup | cargo-generate (cargo)
-        if: steps.binaries.outcome != 'success'
+          VERSION="$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)"
+          sudo curl \
+            -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$VERSION-x86_64-unknown-linux-gnu.tar.gz" \
+            -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C "/home/runner/.cargo/bin/"
+          chmod u+x "/home/runner/.cargo/bin/cargo-generate"
+
+      - name: Install cargo-generate (source)
+        if: steps.binary.outcome != 'success'
         run: cargo install cargo-generate
-      - name: Generate
-        if: matrix.board == 'esp32h2'
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d ci=false -d logging=${{ matrix.logging }}
-      - name: Generate
-        if: matrix.board != 'esp32h2'
-        run: cargo generate --path /home/runner/work/esp-template/esp-template/github-esp-template --allow-commands --name test --vcs none --silent -d mcu=${{ matrix.board }} -d advanced=true -d devcontainer=false -d wokwi=false -d alloc=${{ matrix.alloc }} -d wifi=${{ matrix.wifi }} -d ci=false -d logging=${{ matrix.logging }}
-      - name: cargo ${{ matrix.action.command }}
-        run: cd test; cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
+
+      - name: generate and check
+        run: bash esp-template-gh/.github/verify.sh ${{ matrix.chip }}
