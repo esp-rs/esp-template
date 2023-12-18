@@ -73,6 +73,7 @@ if mcu in ["esp32", "esp32s2", "esp32s3"] {
 let advanced = variable::get("advanced");
 if !advanced {
     variable::set("alloc", false);
+    variable::set("ci", false);
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
     variable::set("logging", false);

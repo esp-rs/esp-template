@@ -18,11 +18,9 @@ perform_checks() {
     cd ..
 }
 
-simple_wifi_arg=""
 complex_wifi_arg=""
 # H2 has no wifi
 if [ "$1" != "esp32h2" ]; then
-    simple_wifi_arg="-d wifi=false"
     complex_wifi_arg="-d wifi=true"
 fi
 
@@ -30,12 +28,11 @@ fi
 cargo generate \
     --path $template_path --name=test-complex --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=true -d logging=true $simple_wifi_arg -d mcu=$1
+    -d alloc=true -d logging=true $complex_wifi_arg -d mcu=$1
 
 cargo generate \
     --path $template_path --name=test-simple --silent --vcs=none \
-    -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=false -d logging=false $complex_wifi_arg -d mcu=$1
+    -d advanced=false -d mcu=$1
 
 # Perform checks
 perform_checks test-complex
