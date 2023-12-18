@@ -78,5 +78,4 @@ if !advanced {
     variable::set("wokwi", false);
     variable::set("logging", false);
     variable::set("wifi", false);
-
 }
