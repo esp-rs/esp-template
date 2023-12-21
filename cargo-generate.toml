@@ -1,6 +1,6 @@
 [template]
 cargo_generate_version = ">=0.17.4"
-ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", "README.md"]
+ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", ".github/verify.sh", "README.md"]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -68,6 +68,7 @@ ignore = [
     ".vscode/",
     "docs/",
     "scripts/",
+    ".github",
     ".dockerignore",
     "diagram.json",
     "wokwi.toml",
