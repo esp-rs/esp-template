@@ -5,9 +5,9 @@
 extern crate alloc;
 use core::mem::MaybeUninit;
 {% endif -%}
+use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 use esp_backtrace as _;
 use esp_println::println;
-use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 
 {% if wifi -%}
 use esp_wifi::{initialize, EspWifiInitFor};
