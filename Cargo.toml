@@ -29,3 +29,8 @@ heapless = { version = "0.8.0", default-features = false }
 [features]
 default = ["{{ mcu }}-hal/xtal-40mhz"]
 {% endif %}
+
+{% if wifi -%}
+[patch.crates-io]
+esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "a69545d" }
+{% endif -%}
