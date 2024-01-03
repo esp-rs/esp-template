@@ -9,10 +9,10 @@ license = "MIT OR Apache-2.0"
 {{ mcu }}-hal = "{{ hal_version }}"
 esp-backtrace = { version = "0.9.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "print-uart"] }
 {% if logging -%}
-esp-println = { version = "0.7.1", features = ["{{ mcu }}", "log"] }
+esp-println = { version = "0.8.0", features = ["{{ mcu }}", "log"] }
 log = { version = "0.4.20" }
 {% else -%}
-esp-println = { version = "0.7.1", features = ["{{ mcu }}"] }
+esp-println = { version = "0.8.0", features = ["{{ mcu }}"] }
 {% endif -%}
 {% if alloc -%}
 esp-alloc = { version = "0.3.0" }
