@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Verifying $1"
 
 # If you want to execute this script locally, you need to update the path to
