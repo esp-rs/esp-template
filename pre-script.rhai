@@ -46,7 +46,6 @@ if mcu in ["esp32", "esp32s2", "esp32s3"] {
     // Xtensa devices:
     variable::set("arch", "xtensa");
     variable::set("gcc_target", `xtensa-${mcu}-elf`);
-    variable::set("has_swd", false);
     variable::set("rust_target", `xtensa-${mcu}-none-elf`);
     variable::set("toolchain", "esp");
 } else {
@@ -55,7 +54,6 @@ if mcu in ["esp32", "esp32s2", "esp32s3"] {
 
     variable::set("arch", "riscv");
     variable::set("gcc_target", "riscv32-esp-elf");
-    variable::set("has_swd", true);
     variable::set("rust_target", `riscv32${extensions}-unknown-none-elf`);
     variable::set("toolchain", "nightly");
 }
