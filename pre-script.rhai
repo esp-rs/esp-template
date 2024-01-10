@@ -110,7 +110,7 @@ let timer = ${mcu}_hal::${meta.esp_wifi_timer};
 let _init = esp_wifi::initialize(
     esp_wifi::EspWifiInitFor::${meta.esp_wifi_init},
     timer,
-    Rng::new(peripherals.RNG),
+    ${mcu}_hal::rng::Rng::new(peripherals.RNG),
     system.radio_clock_control,
     &clocks,
 )

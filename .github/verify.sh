@@ -20,13 +20,11 @@ perform_checks() {
     cd ..
 }
 
-complex_wifi_arg=""
-
 # Generate templates
 cargo generate \
     --path $template_path --name=test-complex --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=true $complex_wifi_arg -d mcu=$1
+    -d alloc=true -d wifi=true -d mcu=$1
 
 cargo generate \
     --path $template_path --name=test-simple --silent --vcs=none \
