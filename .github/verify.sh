@@ -21,16 +21,12 @@ perform_checks() {
 }
 
 complex_wifi_arg=""
-# H2 has no wifi
-if [ "$1" != "esp32h2" ]; then
-    complex_wifi_arg="-d wifi=true"
-fi
 
 # Generate templates
 cargo generate \
     --path $template_path --name=test-complex --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
-    -d alloc=true -d logging=true $complex_wifi_arg -d mcu=$1
+    -d alloc=true $complex_wifi_arg -d mcu=$1
 
 cargo generate \
     --path $template_path --name=test-simple --silent --vcs=none \

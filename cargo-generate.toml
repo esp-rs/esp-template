@@ -42,11 +42,6 @@ type = "bool"
 prompt = "Add CI files for GitHub Action?"
 default = false
 
-[conditional.'advanced'.placeholders.logging]
-type = "bool"
-prompt = "Setup logging using the log crate?"
-default = false
-
 [conditional.'!devcontainer']
 ignore = [
     ".devcontainer/",

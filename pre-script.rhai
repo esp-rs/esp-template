@@ -56,6 +56,5 @@ if !advanced {
     variable::set("ci", false);
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
-    variable::set("logging", false);
     variable::set("wifi", false);
 }

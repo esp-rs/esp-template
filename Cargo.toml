@@ -13,12 +13,9 @@ esp-backtrace = { version = "0.11.0", features = [
     "println",
 ] }
 esp-hal = { version = "0.16.0", features = [ "{{ mcu }}" ] }
-{% if logging -%}
-esp-println = { version = "0.9.0", features = ["{{ mcu }}", "log"] }
+esp-backtrace = { version = "0.10.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "print-uart"] }
+esp-println = { version = "0.8.0", features = ["{{ mcu }}", "log"] }
 log = { version = "0.4.20" }
-{% else -%}
-esp-println = { version = "0.9.0", features = ["{{ mcu }}"] }
-{% endif -%}
 {% if alloc -%}
 esp-alloc = { version = "0.3.0" }
 {% endif -%}
