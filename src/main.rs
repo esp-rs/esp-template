@@ -3,7 +3,6 @@
 
 use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 use esp_backtrace as _;
-use esp_println::println;
 
 {% if alloc -%}
 {{ alloc_snippet }}
