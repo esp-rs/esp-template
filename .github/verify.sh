@@ -22,11 +22,13 @@ perform_checks() {
 
 # Generate templates
 cargo generate \
+    -a \
     --path $template_path --name=test-complex --silent --vcs=none \
     -d advanced=true -d ci=false -d devcontainer=false -d wokwi=false \
     -d alloc=true -d wifi=true -d mcu=$1
 
 cargo generate \
+    -a \
     --path $template_path --name=test-simple --silent --vcs=none \
     -d advanced=false -d mcu=$1
 
