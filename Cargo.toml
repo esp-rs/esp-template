@@ -25,3 +25,15 @@ heapless = { version = "0.7.17", default-features = false }
 [features]
 default = ["{{ mcu }}-hal/xtal-40mhz"]
 {% endif %}
+
+# remove before merge
+[patch.crates-io]
+esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "c8933172bc68b539f1fc17e21cdafafa494803ae" }
+esp-hal-common = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp-hal-common" }
+esp32c2-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32c2-hal" }
+esp32c3-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32c3-hal" }
+esp32c6-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32c6-hal" }
+esp32h2-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32h2-hal" }
+esp32-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32-hal" }
+esp32s3-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32s3-hal" }
+esp32s2-hal = { git = "https://github.com/esp-rs/esp-hal", rev = "df1374dd1a2f93619d4899358e2d309ee5913bc1", package = "esp32s2-hal" }
