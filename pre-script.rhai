@@ -93,6 +93,7 @@ if !advanced {
 // Snippets - These should be short & self-contained, not depending on other snippets existing where possible.
 //
 
+// dependencies: none
 variable::set("alloc_snippet", 
 `
 extern crate alloc;
@@ -111,6 +112,7 @@ fn init_heap() {
 }
 `);
 
+// depends on: `peripherals` being in scope
 variable::set("esp_wifi_snippet",
 `
 let timer = ${mcu}_hal::${meta.esp_wifi_timer};
