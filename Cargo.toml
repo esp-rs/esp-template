@@ -5,6 +5,9 @@ authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
+[profile.release]
+debug = true
+
 [dependencies]
 {{ mcu }}-hal = "{{ hal_version }}"
 esp-backtrace = { version = "0.10.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "print-uart"] }
