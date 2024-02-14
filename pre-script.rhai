@@ -1,37 +1,37 @@
 let metadata = #{
     // Xtensa devices:
     esp32: #{
-        hal_version: "0.17.0",
+        hal_version: "0.18.0",
         wokwi_board: "board-esp32-devkit-c-v4",
     },
     esp32s2: #{
-        hal_version: "0.14.0",
+        hal_version: "0.15.0",
         wokwi_board: "board-esp32-s2-devkitm-1",
     },
     esp32s3: #{
-        hal_version: "0.14.0",
+        hal_version: "0.15.0",
         wokwi_board: "board-esp32-s3-devkitc-1",
     },
 
     // RISC-V devices:
      esp32c2: #{
         extensions: "imc",
-        hal_version: "0.12.0",
+        hal_version: "0.13.0",
         wokwi_board: "",
     },
     esp32c3: #{
         extensions: "imc",
-        hal_version: "0.14.0",
+        hal_version: "0.15.0",
         wokwi_board: "board-esp32-c3-devkitm-1",
     },
     esp32c6: #{
         extensions: "imac",
-        hal_version: "0.7.0",
+        hal_version: "0.8.0",
         wokwi_board: "board-esp32-c6-devkitc-1",
     },
     esp32h2: #{
         extensions: "imac",
-        hal_version: "0.5.0",
+        hal_version: "0.6.0",
         wokwi_board: "board-esp32-h2-devkitm-1",
     },
 };
