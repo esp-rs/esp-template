@@ -9,10 +9,13 @@ license = "MIT OR Apache-2.0"
 debug = true
 
 [dependencies]
-esp-hal = { version = "0.16.0", features = [ "{{ mcu }}" ] }
+esp-backtrace = { version = "0.11.0", features = [
     "{{ mcu }}",
-], git = "https://github.com/esp-rs/esp-hal.git", rev = "6a663f8b1a6bd273cd41d49e2096b8c4906e9da4" }
-esp-backtrace = { version = "0.11.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "println"] }
+    "exception-handler",
+    "panic-handler",
+    "println",
+] }
+esp-hal = { version = "0.16.0", features = [ "{{ mcu }}" ] }
 {% if logging -%}
 esp-println = { version = "0.9.0", features = ["{{ mcu }}", "log"] }
 log = { version = "0.4.20" }
@@ -23,14 +26,24 @@ esp-println = { version = "0.9.0", features = ["{{ mcu }}"] }
 esp-alloc = { version = "0.3.0" }
 {% endif -%}
 {% if wifi -%}
-esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "d5baf9b", features = [
-    "{{ mcu }}",
-    "wifi-default",
-    "utils",
-    "phy-enable-usb",
-] }
-smoltcp = { version = "0.10.0", default-features=false, features = ["proto-igmp", "proto-ipv4", "socket-tcp", "socket-icmp", "socket-udp", "medium-ethernet", "proto-dhcpv4", "socket-raw", "socket-dhcpv4"] }
 embedded-svc = { version = "0.26.1", default-features = false, features = [] }
 embedded-io = "0.6.1"
+esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "d5baf9b", features = [
+    "{{ mcu }}",
+    "phy-enable-usb",
+    "utils",
+    "wifi-default",
+] }
 heapless = { version = "0.8.0", default-features = false }
+smoltcp = { version = "0.10.0", default-features = false, features = [
+    "medium-ethernet",
+    "proto-dhcpv4",
+    "proto-igmp",
+    "proto-ipv4",
+    "socket-dhcpv4",
+    "socket-icmp",
+    "socket-raw",
+    "socket-tcp",
+    "socket-udp",
+] }
 {% endif -%}
