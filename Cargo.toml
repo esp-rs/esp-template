@@ -9,7 +9,7 @@ license = "MIT OR Apache-2.0"
 debug = true
 
 [dependencies]
-esp-hal = { features = [
+esp-hal = { version = "0.16.0", features = [ "{{ mcu }}" ] }
     "{{ mcu }}",
 ], git = "https://github.com/esp-rs/esp-hal.git", rev = "6a663f8b1a6bd273cd41d49e2096b8c4906e9da4" }
 esp-backtrace = { version = "0.11.0", features = ["{{ mcu }}", "panic-handler", "exception-handler", "println"] }
@@ -23,7 +23,7 @@ esp-println = { version = "0.9.0", features = ["{{ mcu }}"] }
 esp-alloc = { version = "0.3.0" }
 {% endif -%}
 {% if wifi -%}
-esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "9be1c01b85d079ea365784216e59ebd0f6a9193d", features = [
+esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "d5baf9b", features = [
     "{{ mcu }}",
     "wifi-default",
     "utils",
