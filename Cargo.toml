@@ -28,7 +28,7 @@ esp-alloc = { version = "0.3.0" }
 {% if wifi -%}
 embedded-svc = { version = "0.26.1", default-features = false, features = [] }
 embedded-io = "0.6.1"
-esp-wifi = { git = "https://github.com/esp-rs/esp-wifi", rev = "d5baf9b", features = [
+esp-wifi = { version = "0.4.0", features = [
     "{{ mcu }}",
     "phy-enable-usb",
     "utils",
