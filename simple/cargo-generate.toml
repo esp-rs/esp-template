@@ -1,6 +1,6 @@
 [template]
 cargo_generate_version = ">=0.17.4"
-ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", ".github/verify.sh", "README.md"]
+include = ["../Cargo.toml", "../build.rs", "../.gitignore"]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -42,29 +42,29 @@ type = "bool"
 prompt = "Add CI files for GitHub Action?"
 default = false
 
-[conditional.'!devcontainer']
-ignore = [
-    ".devcontainer/",
-    ".vscode/tasks.json",
-    "docs/",
-    "scripts/",
-    ".dockerignore",
+[conditional.'devcontainer']
+include = [
+    "../.devcontainer/",
+    "../.vscode/tasks.json",
+    "../docs/",
+    "../scripts/",
+    "../.dockerignore",
 ]
 
-[conditional.'!ci']
-ignore = [".github"]
+[conditional.'ci']
+include = ["../.github"]
 
-[conditional.'!wokwi']
-ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
+[conditional.'wokwi']
+include = ["../.vscode/launch.json", "../diagram.json", "../wokwi.toml"]
 
-[conditional.'!advanced']
-ignore = [
-    ".devcontainer/",
-    ".vscode/",
-    "docs/",
-    "scripts/",
-    ".github",
-    ".dockerignore",
-    "diagram.json",
-    "wokwi.toml",
+[conditional.'advanced']
+include = [
+    "../.devcontainer/",
+    "../.vscode/",
+    "../docs/",
+    "../scripts/",
+    "../.github",
+    "../.dockerignore",
+    "../diagram.json",
+    "../wokwi.toml",
 ]
