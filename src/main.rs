@@ -5,17 +5,17 @@
 extern crate alloc;
 use core::mem::MaybeUninit;
 {% endif -%}
-use {{ mcu }}_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 use esp_backtrace as _;
+use esp_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
 use esp_println::println;
 
 {% if wifi -%}
 use esp_wifi::{initialize, EspWifiInitFor};
 
 {% if arch == "riscv" -%}
-use {{ mcu }}_hal::{systimer::SystemTimer, Rng};
+use esp_hal::{systimer::SystemTimer, Rng};
 {% else -%}
-use {{ mcu }}_hal::{timer::TimerGroup, Rng};
+use esp_hal::{timer::TimerGroup, Rng};
 {% endif -%}
 {% endif -%}
 
