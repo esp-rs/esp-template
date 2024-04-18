@@ -25,7 +25,7 @@ esp-wifi = { version = "0.4.0", features = [
     "{{ mcu }}",
     "phy-enable-usb",
     "utils",
-    "wifi-default",
+    "{{ esp_wifi_feature }}",
 ] }
 heapless = { version = "0.8.0", default-features = false }
 smoltcp = { version = "0.11.0", default-features = false, features = [
