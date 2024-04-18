@@ -4,19 +4,19 @@ let metadata = #{
         wokwi_board: "board-esp32-devkit-c-v4",
         esp_wifi_init: "Wifi",
         esp_wifi_feature: "wifi",
-        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks).timer0"
+        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks, None).timer0"
     },
     esp32s2: #{
         wokwi_board: "board-esp32-s2-devkitm-1",
         esp_wifi_init: "Wifi",
         esp_wifi_feature: "wifi",
-        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks).timer0"
+        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks, None).timer0"
     },
     esp32s3: #{
         wokwi_board: "board-esp32-s3-devkitc-1",
         esp_wifi_init: "Wifi",
         esp_wifi_feature: "wifi",
-        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks).timer0"
+        esp_wifi_timer: "timer::TimerGroup::new(peripherals.TIMG1, &clocks, None).timer0"
     },
 
     // RISC-V devices:

@@ -2,7 +2,7 @@
 #![no_main]
 
 use esp_backtrace as _;
-use esp_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, Delay};
+use esp_hal::{clock::ClockControl, peripherals::Peripherals, prelude::*, delay::Delay};
 
 {% if alloc -%}
 {{ alloc_snippet }}
@@ -14,7 +14,7 @@ fn main() -> ! {
     let system = peripherals.SYSTEM.split();
 
     let clocks = ClockControl::max(system.clock_control).freeze();
-    let mut delay = Delay::new(&clocks);
+    let delay = Delay::new(&clocks);
 
     {%- if alloc %}
     init_heap();
@@ -28,6 +28,6 @@ fn main() -> ! {
 
     loop {
         log::info!("Hello world!");
-        delay.delay_ms(500u32);
+        delay.delay(500.millis());
     }
 }
