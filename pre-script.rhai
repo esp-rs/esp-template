@@ -54,7 +54,6 @@ let mcu = variable::get("mcu");
 let meta = metadata.get(mcu);
 
 variable::set("esp_wifi_feature", meta.get("esp_wifi_feature"));
-variable::set("hal_version", meta.get("hal_version"));
 variable::set("wokwi_board", meta.get("wokwi_board"));
 
 if mcu in ["esp32", "esp32s2", "esp32s3"] {
@@ -108,11 +107,11 @@ fn init_heap() {
 // depends on: `peripherals` being in scope
 variable::set("esp_wifi_snippet",
 `
-let timer = ${mcu}_hal::${meta.esp_wifi_timer};
+let timer = esp_hal::${meta.esp_wifi_timer};
 let _init = esp_wifi::initialize(
     esp_wifi::EspWifiInitFor::${meta.esp_wifi_init},
     timer,
-    ${mcu}_hal::rng::Rng::new(peripherals.RNG),
+    esp_hal::rng::Rng::new(peripherals.RNG),
     system.radio_clock_control,
     &clocks,
 )
