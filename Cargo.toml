@@ -12,24 +12,20 @@ esp-backtrace = { version = "0.11.0", features = [
     "panic-handler",
     "println",
 ] }
-esp-hal = { version = "0.16.0", features = [ "{{ mcu }}" ] }
-{% if logging -%}
+esp-hal = { version = "0.17.0", features = [ "{{ mcu }}" ] }
 esp-println = { version = "0.9.0", features = ["{{ mcu }}", "log"] }
 log = { version = "0.4.20" }
-{% else -%}
-esp-println = { version = "0.9.0", features = ["{{ mcu }}"] }
-{% endif -%}
 {% if alloc -%}
 esp-alloc = { version = "0.3.0" }
 {% endif -%}
 {% if wifi -%}
 embedded-svc = { version = "0.26.1", default-features = false, features = [] }
 embedded-io = "0.6.1"
-esp-wifi = { version = "0.4.0", features = [
+esp-wifi = { version = "0.5.0", features = [
     "{{ mcu }}",
     "phy-enable-usb",
     "utils",
-    "wifi-default",
+    "{{ esp_wifi_feature }}",
 ] }
 heapless = { version = "0.8.0", default-features = false }
 smoltcp = { version = "0.11.0", default-features = false, features = [
