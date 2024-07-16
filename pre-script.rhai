@@ -107,7 +107,7 @@ fn init_heap() {
 // depends on: `peripherals` being in scope
 variable::set("esp_wifi_snippet",
 `
-let timer = esp_hal::${meta.esp_wifi_timer};
+let timer = esp_hal::timer::PeriodicTimer::new(esp_hal::${meta.esp_wifi_timer}.into());
 let _init = esp_wifi::initialize(
     esp_wifi::EspWifiInitFor::${meta.esp_wifi_init},
     timer,
