@@ -19,9 +19,8 @@ log = { version = "0.4.21" }
 esp-alloc = { version = "0.4.0" }
 {% endif -%}
 {% if wifi -%}
-embedded-svc = { version = "0.26.1", default-features = false, features = [] }
 embedded-io = "0.6.1"
-esp-wifi = { version = "0.7.0", features = [
+esp-wifi = { version = "0.7.1", features = [
     "{{ mcu }}",
     "phy-enable-usb",
     "utils",
