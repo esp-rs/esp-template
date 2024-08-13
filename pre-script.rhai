@@ -69,7 +69,7 @@ if mcu in ["esp32", "esp32s2", "esp32s3"] {
     variable::set("arch", "riscv");
     variable::set("gcc_target", "riscv32-esp-elf");
     variable::set("rust_target", `riscv32${extensions}-unknown-none-elf`);
-    variable::set("toolchain", "nightly");
+    variable::set("toolchain", "stable");
 }
 
 let advanced = variable::get("advanced");
