@@ -54,9 +54,9 @@ jobs:
 
       # Rust toolchain for RISC-V:
       - if: matrix.chip != 'esp32' && matrix.chip != 'esp32s2' && matrix.chip != 'esp32s3'
-        uses: dtolnay/rust-toolchain@nightly
+        uses: dtolnay/rust-toolchain@stable
         with:
-          target: riscv32imac-unknown-none-elf
+          target: riscv32imc-unknown-none-elf,riscv32imac-unknown-none-elf
           components: clippy,rustfmt,rust-src
 
       - uses: Swatinem/rust-cache@v2
