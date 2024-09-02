@@ -6,21 +6,21 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-esp-backtrace = { version = "0.13.0", features = [
+esp-backtrace = { version = "0.14.0", features = [
     "{{ mcu }}",
     "exception-handler",
     "panic-handler",
     "println",
 ] }
-esp-hal = { version = "0.19.0", features = [ "{{ mcu }}" ] }
-esp-println = { version = "0.10.0", features = ["{{ mcu }}", "log"] }
+esp-hal = { version = "0.20.1", features = [ "{{ mcu }}" ] }
+esp-println = { version = "0.11.0", features = ["{{ mcu }}", "log"] }
 log = { version = "0.4.21" }
 {% if alloc -%}
 esp-alloc = { version = "0.4.0" }
 {% endif -%}
 {% if wifi -%}
 embedded-io = "0.6.1"
-esp-wifi = { version = "0.7.1", features = [
+esp-wifi = { version = "0.8.0", features = [
     "{{ mcu }}",
     "phy-enable-usb",
     "utils",
