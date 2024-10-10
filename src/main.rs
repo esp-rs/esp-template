@@ -2,9 +2,7 @@
 #![no_main]
 
 use esp_backtrace as _;
-use esp_hal::{
-    clock::ClockControl, delay::Delay, peripherals::Peripherals, prelude::*, system::SystemControl,
-};
+use esp_hal::{delay::Delay, prelude::*};
 
 {% if alloc -%}
 {{ alloc_snippet }}
@@ -12,11 +10,9 @@ use esp_hal::{
 
 #[entry]
 fn main() -> ! {
-    let peripherals = Peripherals::take();
-    let system = SystemControl::new(peripherals.SYSTEM);
-
-    let clocks = ClockControl::max(system.clock_control).freeze();
-    let delay = Delay::new(&clocks);
+    #[allow(unused)]
+    let peripherals = esp_hal::init(esp_hal::Config::default());
+    let delay = Delay::new();
 
     {%- if alloc %}
     init_heap();
