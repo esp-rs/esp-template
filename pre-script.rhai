@@ -84,15 +84,16 @@ variable::set("alloc_snippet",
 extern crate alloc;
 use core::mem::MaybeUninit;
 
-#[global_allocator]
-static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
-
 fn init_heap() {
     const HEAP_SIZE: usize = 32 * 1024;
     static mut HEAP: MaybeUninit<[u8; HEAP_SIZE]> = MaybeUninit::uninit();
 
     unsafe {
-        ALLOCATOR.init(HEAP.as_mut_ptr() as *mut u8, HEAP_SIZE);
+        esp_alloc::HEAP.add_region(esp_alloc::HeapRegion::new(
+            HEAP.as_mut_ptr() as *mut u8,
+            HEAP_SIZE,
+            esp_alloc::MemoryCapability::Internal.into(),
+        ));
     }
 }
 `);
@@ -100,13 +101,12 @@ fn init_heap() {
 // depends on: `peripherals` being in scope
 variable::set("esp_wifi_snippet",
 `
-let timg0 = esp_hal::timer::timg::TimerGroup::new(peripherals.TIMG0, &clocks);
-let _init = esp_wifi::initialize(
+let timg0 = esp_hal::timer::timg::TimerGroup::new(peripherals.TIMG0);
+let _init = esp_wifi::init(
     esp_wifi::EspWifiInitFor::${meta.esp_wifi_init},
     timg0.timer0,
     esp_hal::rng::Rng::new(peripherals.RNG),
     peripherals.RADIO_CLK,
-    &clocks,
 )
 .unwrap();
 `
