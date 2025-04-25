@@ -3,6 +3,7 @@ cargo_generate_version = ">=0.17.4"
 ignore = [".git", ".github/dependabot.yml", ".github/workflows/ci_docker.yml", ".github/workflows/ci.yml", ".github/workflows/issue_handler.yml", ".github/verify.sh", "README.md"]
 
 [hooks]
+init = ["init-script.rhai"]
 pre = ["pre-script.rhai"]
 post = ["post-script.rhai"]
 
